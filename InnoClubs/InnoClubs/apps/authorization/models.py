@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Participant(models.Model):  # I want to change this name. Not User. Wait for your ideas
+class Person(models.Model):    # I want to change this name. Not User. Wait for your ideas
     login = models.CharField('login', max_length=64)
     name = models.CharField('name', max_length=32)
     sname = models.CharField('surname', max_length=32)
