@@ -1,14 +1,40 @@
-<!DOCTYPE html> <!-- Объявление формата документа -->
+<!DOCTYPE html>
+{% load static %}
 <html>
-<head> <!-- Техническая информация о документе -->
-<meta charset="UTF-8"> <!-- Определяем кодировку символов документа -->
-<title>СУпеР</title> <!-- Задаем заголовок документа -->
+<head>
+    <meta charset="utf-8">
+    <title>{% block title%}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    {% block head%}{% endblock %}
+
 </head>
-<body> <!-- Основная часть документа -->
-<h2>""это тупой шаблон"</h2><br>
-тупо для проверки, ведь все равно я шитемеле не помню<br>
-а вообще сюда можно будет писать общий шаблон для всего сайта, могу скинуть ссыль<br>
-на видосик в котором это делают. Чисто чтобы по 100500 раз не прописывать или не <br>
-копировать футеры, хедеры и навигацию если она будет
+<body>
+<header>
+    <div id="logo">
+        <a href="/" tittle="Перейти на главную"><span>InnoClubs</span></a>
+    </div>
+    {% if username %}
+    <div id="logout">
+        <a href=''>Log out</a>|{{username}}
+    </div>
+    {% endif %}
+</header>
+<br>
+<br>
+<div class="wrapper">
+    {% block content %}{% endblock %}
+</div>
+<br>
+
+<footer>
+    <div id="rights">
+        Все права защищены &copy;
+    </div>
+
+    <div id="info">
+        <h5>Contacts:</h5>
+        <p>8800-555-35-35|FAQ@innopolis.university</p>
+    </div>
+</footer>
 </body>
 </html>
