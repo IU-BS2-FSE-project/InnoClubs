@@ -9,9 +9,14 @@
 {% block content %}
     <div class="container">
         <img src="{% static 'img/img_avatar2.png' %}" alt="Avatar" class="avatar"><br>
-        <button class="mailbtn">Log in via university mail</button>
-        <br><br>
-    <form action="#" method="post">
+        <button class="mailbtn">Log in via university mail</button><br>
+        {% if error %}
+        <label class="error">{{ error }}</label>
+        {% else %}
+        <br>
+        {% endif %}
+
+    <form action="/" method="post">{% csrf_token %}
         <input type="text" placeholder="Enter Username" name="uname" required><br>
         <input type="password" placeholder="Enter Password" name="psw" required><br>
         <button type="submit">Login</button><br>
