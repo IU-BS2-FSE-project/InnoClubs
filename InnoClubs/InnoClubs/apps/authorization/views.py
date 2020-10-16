@@ -9,6 +9,7 @@ from .forms import SignUpForm
 @csrf_protect
 def login(request):
     args = {}
+    args['username'] = auth.get_user(request).username
     if request.POST:
         username = request.POST.get('uname', '')
         password = request.POST.get('psw', '')
@@ -20,7 +21,12 @@ def login(request):
             args['error'] = "User not found"
             return render(request, 'authorization/login.html', args)
     else:
-        return render(request, 'authorization/login.html')
+        return render(request, 'authorization/login.html', args)
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
 
 
 class SignUpView(generic.CreateView):
