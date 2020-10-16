@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Person(models.Model):    # I want to change this name. Not User. Wait for your ideas

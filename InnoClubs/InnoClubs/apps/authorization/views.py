@@ -1,6 +1,11 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from .forms import SignUpForm
 
 
 @csrf_protect
@@ -20,5 +25,7 @@ def login(request):
         return render(request, 'authorization/login.html')
 
 
-def signup(request):
-    return render(request, 'authorization/registr.html')
+class SignUpView(generic.CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy('login')
+    template_name = 'authorization/registr.html'

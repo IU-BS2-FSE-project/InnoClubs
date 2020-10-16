@@ -1,5 +1,5 @@
 /* Bordered form */
-form {
+.container {
   border: 3px solid #f1f1f1;
   padding: 5%;
   background-color: #999999;
@@ -9,7 +9,7 @@ form {
   min-width:240px
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -19,15 +19,8 @@ input[type=text], input[type=password] {
   border-radius: 10px
 }
 
-.name{
-    width: 80%;
-    margin: 8px 0;
-    display: inline-block;
-}
-
-.name input{
-    width: 48%;
-    margin: 0;
+#id_name, #id_sname {
+    width: 40%;
 }
 
 /* Set a style for all buttons */
