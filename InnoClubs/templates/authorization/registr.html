@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Sign up{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registr.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post">{% csrf_token %}
+            <img src="{% static 'img/img_avatar2.png' %}" alt="Avatar" class="avatar">
+            <h1>New User Registation</h1>
+            <br>
+            {{ form }}
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+{% endblock %}
