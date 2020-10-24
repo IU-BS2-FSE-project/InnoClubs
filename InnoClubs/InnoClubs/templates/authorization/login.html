@@ -1,12 +1,27 @@
-<!DOCTYPE html> <!-- Объявление формата документа -->
-<html>
-<head> <!-- Техническая информация о документе -->
-<meta charset="UTF-8"> <!-- Определяем кодировку символов документа -->
-<title>ЛОГИН</title> <!-- Задаем заголовок документа -->
-</head>
-<body> <!-- Основная часть документа -->
-<h2>"это тупой шаблон"</h2><br>
-В общем то тут я просто скопировал предыдущий и закреп будет именно на него.<br>
-но этот файл может просто дополнять предыдущий шаблон
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title%}Log in{% endblock %}
+
+{% block head%}<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <img src="{% static 'img/img_avatar2.png' %}" alt="Avatar" class="avatar"><br>
+        <button class="mailbtn">Log in via university mail</button><br>
+        {% if error %}
+        <label class="error">{{ error }}</label>
+        {% else %}
+        <br>
+        {% endif %}
+
+    <form method="post">{% csrf_token %}
+        <input type="text" placeholder="Enter Username" name="uname" required><br>
+        <input type="password" placeholder="Enter Password" name="psw" required><br>
+        <button type="submit">Login</button><br>
+    </form>
+        <a href="signup"><button>New User</button></a><br>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+{% endblock %}
