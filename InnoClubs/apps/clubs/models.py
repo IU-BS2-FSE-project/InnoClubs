@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+
 class Club(models.Model):
     club_title = models.CharField("Title of the club", max_length=200)
     club_info = models.CharField("Information of the club", max_length=2000)
