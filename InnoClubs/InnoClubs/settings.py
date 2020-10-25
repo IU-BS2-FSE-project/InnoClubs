@@ -130,6 +130,7 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
+# settings for the password reset
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
