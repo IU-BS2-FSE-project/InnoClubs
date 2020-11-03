@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'clubs.apps.ClubsConfig',
     'authorization.apps.AuthorizationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
