@@ -2,10 +2,16 @@
 {% load static %}
 
 
-{% block title%}InnoClubs{% endblock %}
+{% block title %}InnoClubs{% endblock %}
 
-{% block head%}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">{% endblock %}
 
 {% block content %}
     <h1>MAIN PAGE</h1>
+    {% if infoFromDb %}
+        {% for a in infoFromDb %}
+            <a href="{% url 'clubPage' a.club_url %}">{{ a.club_title }}</a><br>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
