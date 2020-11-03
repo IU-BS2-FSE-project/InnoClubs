@@ -80,5 +80,9 @@ footer #info{
     width: 98%;
     padding: 1%;
     margin-top: 30px;
+<<<<<<< HEAD
     min-height: 75%;
+=======
+    min-height: 60%;
+>>>>>>> 00bc81d4510ad5f5fb19580a4b79eb1bbbb3b8d8
 }
