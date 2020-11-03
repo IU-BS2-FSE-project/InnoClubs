@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Club
 
 # if user is not logged in => redirect to the auth/
@@ -11,7 +12,7 @@ def main(request):
         args['username'] = auth.get_user(request).username
         try:
             args['infoFromDb'] = Club.objects.all()
-        except:
+        except ObjectDoesNotExist:
             args['infoFromDb'] = None
         return render(request, "clubs/main.html", args)
     else:
@@ -24,10 +25,8 @@ def ClubPage(request, club_url):
     args = {}
     if auth.get_user(request).username:
         args['username'] = auth.get_user(request).username
-        try:
-            args['infoFromDb'] = Club.objects.get(club_url=club_url)
-        except:
-            args['infoFromDb'] = None
+        args['infoFromDb'] = Club.objects.get(club_url=club_url)
+
         return render(request, "clubs/pageOfClub.html", args)
     else:
         return redirect('auth/')
