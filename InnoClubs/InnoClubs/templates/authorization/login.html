@@ -8,6 +8,7 @@
 
 {% block content %}
     <div class="container">
+        <div id="centerOfContainer">
         <img src="{% static 'img/img_avatar2.png' %}" alt="Avatar" class="avatar"><br>
         <button class="mailbtn">Log in via university mail</button><br>
         {% if error %}
@@ -23,5 +24,6 @@
     </form>
         <a href="signup"><button>New User</button></a><br>
         <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
     </div>
 {% endblock %}

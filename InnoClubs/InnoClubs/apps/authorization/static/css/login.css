@@ -6,8 +6,13 @@
   margin: 0 auto;
   text-align: center;
   width: 40%;
-  min-width:400px
+  min-width:640px;
+  min-height:640px;
 }
+form{
+  margin:auto 0;
+}
+
 
 input[type=text], input[type=password] {
   width: 80%;
