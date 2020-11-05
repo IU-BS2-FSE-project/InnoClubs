@@ -41,7 +41,7 @@ def subscribe(request, club_url):
     user = auth.get_user(request)
     club = Club.objects.get(club_url=club_url)
     user.student.subscriptions.add(club)
-    return HttpResponseRedirect(reverse('clubPage', args=(club_url,)))
+    return HttpResponseRedirect(reverse('clubPage', args=(club_url,)))  # almost same as redirect
 
 
 def unsubscribe(request, club_url):
