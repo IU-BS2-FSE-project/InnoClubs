@@ -5,4 +5,3 @@ from .models import Club, Student, ClubAdmin
 admin.site.register(Club)
 admin.site.register(Student)
 admin.site.register(ClubAdmin)
-
