@@ -5,9 +5,20 @@
 {% block title %}InnoClubs{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
 
 {% block content %}
+    <h1>Club types</h1>
+    <div id="clubTypeGrid">
+        {% block clubTypes %}
+            {% if clubTypeList %}
+                    {% for clubType in clubTypeList%}
+                        <a href="{{clubType.type_url}}" class="clubType" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
+                    {% endfor %}
+            {% endif %}
+        {% endblock %}
+    </div>
+    <!-- Sample info, to be deleted -->>
     <h1>MAIN PAGE</h1>
     {% if user.is_superuser %}
         You are super user, and only you can see that!

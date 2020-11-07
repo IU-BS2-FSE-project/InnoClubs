@@ -1,4 +1,22 @@
 h1 {
-    color: blue;
-    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+a.clubType {
+    padding: 40px 30px;
+    font-size: 40px;
+    color: white;
+    background-size: cover;
+    background-position: 50%;
+}
+
+#clubTypeGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2vw;
 }
