@@ -1,28 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
+{% block title %}{{ infoFromDb.club_title }}{% endblock %}
 
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}{{ infoFromDb.club_title }}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesForPageOfClubs.css' %}">
-    {% block head %}{% endblock %}
-</head>
-<body>
-<header>
-    <div id="logo">
-        <a href="/" tittle="Перейти на главную"><span>InnoClubs</span></a>
-    </div>
-    {% if username %}
-        <div id="logout">
-            <a href='auth/logout'>Log out</a> | {{ username }}
-        </div>
-    {% endif %}
-</header>
-<br>
-<br>
-
-<div class="wrapper">
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubPage.css' %}">
+    {% endblock %}
     {% block content %}
         <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
         <ul class="menu">
@@ -40,18 +22,3 @@
         {{ infoFromDb.club_info }} <br>
         Our chat in telegram: {{ infoFromDb.club_chat }}
     {% endblock %}
-</div>
-<br>
-
-<footer>
-    <div id="rights">
-        Все права защищены &copy;
-    </div>
-
-    <div id="info">
-        <h5>Contacts:</h5>
-        <p>8800-555-35-35|FAQ@innopolis.university</p>
-    </div>
-</footer>
-</body>
-</html>
