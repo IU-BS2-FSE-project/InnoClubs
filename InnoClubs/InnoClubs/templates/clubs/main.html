@@ -9,16 +9,57 @@
 
 {% block content %}
     <h1>Club types</h1>
-    <div id="clubTypeGrid">
-        {% block clubTypes %}
-            {% if clubTypeList %}
-                    {% for clubType in clubTypeList%}
-                        <a href="{{clubType.type_url}}" class="clubType" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
-                    {% endfor %}
-            {% endif %}
-        {% endblock %}
-    </div>
-    <!-- Sample info, to be deleted -->>
+    {% block clubTypes %}
+        <div id="clubTypeGrid">
+                {% if clubTypeList %}
+                        {% for clubType in clubTypeList%}
+                            <a href="{{clubType.type_url}}" class="clubType" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
+                        {% endfor %}
+                {% endif %}
+        </div>
+    {% endblock %}
+    <h1>Upcoming activities</h1>
+    {% block clubEvents %}
+        <div id="clubEventGrid">
+                {% if clubEventList %}
+                        {% for clubEvent in clubEventList%}
+                            <a class="clubEvent" href="{{clubEvent.url}}">
+                                <img class="clubEventPicture" src="{{clubEvent.picture}}" width="64px" height="64px">
+                                <div class="clubEventCenter">
+                                    <span class="clubEventName overflowText">{{clubEvent.name}}</span>
+                                    <span class="clubEventDescr description overflowText">{{clubEvent.description}}</span>
+                                </div>
+                                <div class="clubEventTimeDate description">{{clubEvent.time_date}}</div>
+                                <div class="clubEventPlace description">{{clubEvent.place}}</div>
+                                <div class="clubEventParticipants description">{{clubEvent.participants}}</div>
+                            </a> 
+                        {% endfor %}
+                {% endif %}
+                <!-- Example events -->
+                    <a class="clubEvent" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                        <img class="clubEventPicture" src="https://i0.wp.com/www.axis-realty.com/wp-content/uploads/2016/09/cropped-favicon.png" width="64px" height="64px">
+                        <div class="clubEventCenter">
+                            <span class="clubEventName overflowText">test_event 1</span>
+                            <span class="clubEventDescr description overflowText">test_event 1 long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long description</span>
+                        </div>
+                        <div class="clubEventTimeDate description">12:40 01.02.2021</div>
+                        <div class="clubEventPlace description">University hall</div>
+                        <div class="clubEventParticipants description">100 participants</div>
+                    </a> 
+                    <a class="clubEvent" href="https://www.youtube.com/watch?v=5qap5aO4i9A">
+                        <img class="clubEventPicture" src="https://i0.wp.com/www.axis-realty.com/wp-content/uploads/2016/09/cropped-favicon.png" width="64px" height="64px">
+                        <div class="clubEventCenter">
+                            <span class="clubEventName overflowText">test_event 2</span>
+                            <span class="clubEventDescr description overflowText">test_event 2 short short short short short short short description</span>
+                        </div>
+                        <div class="clubEventTimeDate description">00:00 01.01.1970</div>
+                        <div class="clubEventPlace description">Sports center 3rd floor cardio section дщтп дщтп дщтп дщтп дщтп дщтп </div>
+                        <div class="clubEventParticipants description">1 participant</div>
+                    </a> 
+                <!-- /Example events -->
+        </div>
+    {% endblock %}
+    <!-- Sample info, to be deleted -->
     <h1>MAIN PAGE</h1>
     {% if user.is_superuser %}
         You are super user, and only you can see that!

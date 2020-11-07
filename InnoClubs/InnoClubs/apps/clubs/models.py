@@ -20,7 +20,7 @@ class ClubType(models.Model):
     type_image = models.ImageField(upload_to="static/img", null=True)
     # TODO: remove null and add 404 page as default one
     type_url = models.CharField(
-        "Url to the page with list of clubs of such type (For example testUrl) ", max_length=255, null=True)
+        "Url to the page with list of clubs of such type (For example testUrl)", max_length=255, null=True)
 
     def __str__(self):
         return self.type_name

@@ -1,22 +1,82 @@
 h1 {
     color: black;
     font-family: "Segoe UI", sans-serif;
-    font-size: 40px;
-    font-weight: normal;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 60px;
+    margin-bottom: 20px;
 }
 
 a.clubType {
     padding: 40px 30px;
-    font-size: 40px;
+    font-size: 30px;
     color: white;
     background-size: cover;
     background-position: 50%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px lightgray;
+}
+
+a.clubEvent {
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr 1fr 1fr;
+    color: black;
+}
+
+.clubEventCenter {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.clubEventName {
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.clubEventDescr {
+}
+
+.overflowText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.clubEventTimeDate {
+    margin: 0px 5px;
+}
+
+.clubEventPlace {
+    margin: 0px 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.clubEventParticipants {
+    margin: 0px 5px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.description {
+    color: #6a737d;
+    font-size: 14px;
 }
 
 #clubTypeGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 2vw;
+}
+
+#clubEventGrid {
+    display: grid;
+    grid-template-columns: 1fr;
     grid-gap: 2vw;
 }

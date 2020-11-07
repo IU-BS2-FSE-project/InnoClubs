@@ -10,30 +10,32 @@
 </head>
 <body>
 <header>
-    <div id="logo">
-        <a href="/" title="Перейти на главную"><span>InnoClubs</span></a>
+    <div class="container">
+        <div id="logo">
+            <a href="/" title="Перейти на главную"><span>InnoClubs</span></a>
+        </div>
+        {% if username %}
+            <div id="logout">
+                <a href='auth/logout'>Log out</a>|{{username}}
+            </div>
+        {% endif %}
     </div>
-    {% if username %}
-    <div id="logout">
-        <a href='auth/logout'>Log out</a>|{{username}}
-    </div>
-    {% endif %}
 </header>
-<br>
 <br>
 <div class="wrapper">
     {% block content %}{% endblock %}
 </div>
-<br>
-
 <footer>
-    <div id="rights">
-        Все права защищены &copy;
-    </div>
+    <div class="container">
+        <div id="rights">
+            Все права защищены &copy;
+        </div>
 
-    <div id="info">
-        <h5>Contacts:</h5>
-        <p>8800-555-35-35|FAQ@innopolis.university</p>
+        <div id="info">
+            <h5>Contacts:</h5>
+            <p>8800-555-35-35</p>
+            <p>FAQ@innopolis.university</p>
+        </div>
     </div>
 </footer>
 </body>
