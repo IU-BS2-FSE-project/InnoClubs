@@ -27,11 +27,13 @@
     </ul>
     <hr>
 
-    <-- put button add news here -->
+    <a href="{% url 'addNews' club.club_url %}">Add News</a>
     <ul>
-        <li><--article title--></li>
-        <li>Article 2</li>
-        <li>Article 3</li>
+        {% for article in club.news_set.all%}
+        <li>{{article.title}}
+        <a href="#">Delete</a>
+        </li>
+        {% endfor %}
     </ul>
     <hr>
 

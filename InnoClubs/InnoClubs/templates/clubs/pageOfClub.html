@@ -11,7 +11,7 @@
             <li><a href="#">Join Club</a></li>
             <li><a href="#">Check attendance</a></li>
             <li><a href="#">Club's Chat</a></li>
-            <li><a href="#">Club's Administration</a></li>
+            <li><a href="{% url 'administration' infoFromDb.club_url %}">Club's Administration</a></li>
             {% if infoFromDb in user.student.subscriptions.all %}
                 <li><a href="{% url 'unsubscribe' infoFromDb.club_url %}">Unsubscribe</a></li>
             {% else %}

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from .models import Club, Student, ClubAdmin
+
+from .forms import AddNewsForm
+from .models import Club, Student, ClubAdmin, News
 from django.http import HttpResponseRedirect
 
 
@@ -65,5 +67,33 @@ def administration(request, club_url):
     return render(request, "clubs/administrationOfClub.html", args)
 
 
+def delete_news(request, article_id):
+    article = News.objects.filter(id=article_id)
+    club_url = article.club.club_url
+    article.delete()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+
+def addNews(request, club_url):
+    args = {}
+    if request.method == "POST":
+        form = AddNewsForm(request.POST)
+        if form.is_valid():
+            args['form'] = form
+
+            new = form.save(commit=False)
+            new.club = Club.objects.get(club_url=club_url)
+            new.save()
+            return HttpResponseRedirect(reverse('addNews', args=(club_url,)))
+        else:
+            return render(request, 'clubs/addNews.html', args)
+    else:
+        form = AddNewsForm()
+        args['form'] = form
+        return render(request, 'clubs/addNews.html', args)
+
+
 def addEvent(request, club_url):
     pass
+
+

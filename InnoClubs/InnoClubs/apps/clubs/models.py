@@ -19,13 +19,21 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     hours = models.TimeField("Hours", null=True, blank=True)
     # how to use info from this field - https://metanit.com/python/django/5.7.php
-    subscriptions = models.ManyToManyField(Club, null=True, blank=True)
+    subscriptions = models.ManyToManyField(Club, blank=True)
 
 
 class ClubAdmin(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    rights = models.BinaryField()  # there is only two options(admin and assistant).So let's 1 be admin and 0 assistant
+    rights = models.CharField("Rights", max_length=9)
+
+
+class News(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    title = models.CharField("Title", max_length=32)
+    info = models.TextField("Info", null=True, blank=True)
+    publication_date = models.DateTimeField("Publication_date", auto_now_add=True)
+    due_date = models.DateField("Due_date")
 
 
 # these two methods need for adding default Users records to custom Student

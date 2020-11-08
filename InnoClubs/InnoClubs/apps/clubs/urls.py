@@ -11,4 +11,9 @@ urlpatterns = [
     path('<str:club_url>', views.ClubPage, name='clubPage'),
     path('<str:club_url>/subscribe/', views.subscribe, name='subscribe'),
     path('<str:club_url>/unsubscribe/', views.unsubscribe, name='unsubscribe'),
+    path('<str:club_url>/administration/', views.administration, name='administration'),
+    path('<str:club_url>/administration/deleteNews/', views.delete_news, name='deleteNews'),
+    path('<str:club_url>/administration/addNews/', views.addNews, name='addNews'),
+    path('<str:club_url>/administration/addEvent/', views.addEvent, name='addEvent'),
+
 ]
