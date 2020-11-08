@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}InnoClubs{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">{% endblock %}
+
+{% block content %}
+    <h1>{{ club.club_title }} administration</h1>
+    <hr>
+
+    <h2>Club description</h2>
+    <-- put input.text here -->
+    <h2>Telegram Chat</h2>
+    <-- put input.text here -->
+        <br>
+    <-- put button add picture here -->
+    <hr>
+
+    <a href="{% url 'addEvent' club.club_url %}">Add event</a>
+    <ul>
+        <li>Every <--day of week-->, <--time start--> - <--time end--> (aud. <--place-->)</li>
+        <li>Event 2</li>
+        <li>Event 3</li>
+    </ul>
+    <hr>
+
+    <-- put button add news here -->
+    <ul>
+        <li><--article title--></li>
+        <li>Article 2</li>
+        <li>Article 3</li>
+    </ul>
+    <hr>
+
+    <h2>Club members</h2>
+    <-- put input.txt search here -->
+    <ol>
+        {% for admin in club.clubadmin_set.all %}
+        <li>{{ admin.student.user.first_name }} {{admin.student.user.last_name}}({{admin.student.user.email}})
+            {{admin.rights}}
+            {% if admin.rights == "Admin" %}   <!--Вы не поверите сколько времени я думал как бы это правильно вывести-->
+                <a href="#" >Set as administrator</a><!--it should stay without any link-->
+                <a href="#">Downgrade</a>
+            {% elif admin.rights == "Assistant" %}
+                <a href="#">Set as administrator</a>
+                <a href="#">Downgrade</a>
+            {% endif %}
+        {% endfor %}
+
+        {% for person in students %}
+        {% if person not in admins_list %}
+            <li>{{ person.user.first_name }} {{person.user.last_name}}({{person.user.email}}) Club Member
+            <a href="#">Set as assistance</a>
+            <a href="#">Kick</a>
+        {% endif %}
+        {% endfor %}
+
+
+    </ol>
+
+{% endblock %}
