@@ -34,13 +34,18 @@ header{
 
 }
 
-header #logo{
+header #leftHeader{
+    margin: 10px;
     width: 130px;
     float: left;
     font-size: 2em;
 }
 
-header #logout{
+header #leftHeader span{
+    color: #fff;
+}
+
+header #rightHeader{
     width: 40%;
     float: right;
     text-align: right;
@@ -48,8 +53,45 @@ header #logout{
     min-width: 220px;
 }
 
-header #logo span{
-    color: #fff;
+.dropdownMenu{
+    display: inline-block;
+    position: relative;
+}
+
+.dropdownButton{
+    border: none;
+    padding: 0px 5px 3px 5px;
+    font-size: 40px;
+    background-color: #80bc00;
+}
+
+.dropdownMenuContents{
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+    min-width: 250px;
+    right: 0;
+}
+
+.dropdownMenuContents a{
+    display: block;
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.dropdownMenuContents a:hover{
+    background-color: #ddd;
+}
+
+.dropdownMenu:hover .dropdownButton{
+    background-color: #659400;
+}
+
+.dropdownMenu:hover .dropdownMenuContents{
+    display: block;
 }
 
 .container {

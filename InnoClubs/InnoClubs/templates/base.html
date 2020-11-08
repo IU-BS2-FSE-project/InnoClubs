@@ -11,14 +11,25 @@
 <body>
 <header>
     <div class="container">
-        <div id="logo">
-            <a href="/" title="Перейти на главную"><span>InnoClubs</span></a>
+        <div id="leftHeader">
+            <a href="/" title="Go to the main page"><span>InnoClubs</span></a>
         </div>
-        {% if username %}
-            <div id="logout">
-                <a href='auth/logout'>Log out</a>|{{username}}
+        <div id="rightHeader">
+            <div class="dropdownMenu">
+                <button class="dropdownButton">≡</button>
+                <div class="dropdownMenuContents">
+                    {% if username %}
+                        <a href='#'>Logged in as {{username}}</a>
+                    {% endif %}
+                    <a href='#'>Menu entry 1</a>
+                    <a href='#'>Menu entry 2</a>
+                    <a href='#'>Menu entry 3</a>
+                    {% if username %}
+                        <a href='auth/logout'>Log out</a>
+                    {% endif %}
+                </div>
             </div>
-        {% endif %}
+        </div>
     </div>
 </header>
 <br>
