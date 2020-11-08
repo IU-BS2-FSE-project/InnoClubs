@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Club
+from .models import Club, ClubType
+
 
 # if user is not logged in => redirect to the auth/
 # if user is logged in => show main page
-# args['infoFromDb'] = .... means that we add information of all the clubs from database to the args
+# args['infoFromDb'] = .... means that we add information of all the clubs
+# from database to the args
 def main(request):
     args = {}
     if auth.get_user(request).username:
@@ -14,13 +16,21 @@ def main(request):
             args['infoFromDb'] = Club.objects.all()
         except ObjectDoesNotExist:
             args['infoFromDb'] = None
+
+        try:
+            args['clubTypeList'] = ClubType.objects.all()
+        except ObjectDoesNotExist:
+            args['clubTypeList'] = None
+
         return render(request, "clubs/main.html", args)
     else:
         return redirect("auth/")
 
+
 # if user is not logged in => redirect to the auth/
 # if user is logged in => show main page
-# args['infoFromDb'] = Club.objects.get(club_url=club_url) means that we add information of the exactly one club that was accessed
+# args['infoFromDb'] = Club.objects.get(club_url=club_url) means that we add
+# information of the exactly one club that was accessed
 def ClubPage(request, club_url):
     args = {}
     if auth.get_user(request).username:
