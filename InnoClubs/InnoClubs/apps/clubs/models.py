@@ -36,6 +36,32 @@ class News(models.Model):
     due_date = models.DateField("Due_date")
 
 
+class Event(models.Model):
+    CHOICES = (
+        ('Sun.', 'Sunday'),
+        ('Mon.', 'Monday'),
+        ('Tues.', 'Tuesday'),
+        ('Wed.', 'Wednesday'),
+        ('Thur.', 'Thursday'),
+        ('Fri.', 'Friday'),
+        ('Sat.', 'Saturday'),
+    )
+    week_day = models.CharField(max_length=8, choices=CHOICES, null=True, blank=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    place = models.CharField(max_length=15)
+    text = models.TextField()
+    one_time = models.BooleanField(default=False)
+
+
+class OneTimeEvent(models.Model):
+    date = models.DateField(null=True, blank=True)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    place = models.CharField(max_length=15)
+    text = models.TextField()
+
+
 # these two methods need for adding default Users records to custom Student
 # link to method https://habr.com/ru/post/313764/#OneToOneField
 # Note: if you want to use data from Student, f.e. hours, you should write user.student.hours
