@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 
-from .forms import AddNewsForm
+from .forms import AddNewsForm, AddEventForm
 from .models import Club, Student, ClubAdmin, News
 from django.http import HttpResponseRedirect
 
@@ -31,8 +31,13 @@ def main(request):
 def ClubPage(request, club_url):
     args = {}
     if auth.get_user(request):
-        args['user'] = auth.get_user(request)
-        args['infoFromDb'] = Club.objects.get(club_url=club_url)
+        user = auth.get_user(request)
+        club = Club.objects.get(club_url=club_url)
+        for record in club.clubadmin_set.all():
+            if record.student == user.student:
+                args['rights'] = record.rights
+        args['user'] = user
+        args['infoFromDb'] = club
 
         return render(request, "clubs/pageOfClub.html", args)
     else:
@@ -93,6 +98,21 @@ def addNews(request, club_url):
 
 
 def addEvent(request, club_url):
-    pass
+    args = {}
+    if request.method == "POST":
+        form = AddEventForm(request.POST)
+        if form.is_valid():
+            args['form'] = form
+
+            new = form.save(commit=False)
+            new.club = Club.objects.get(club_url=club_url)
+            new.save()
+            return HttpResponseRedirect(reverse('addEvent', args=(club_url,)))
+        else:
+            return render(request, 'clubs/addEvent.html', args)
+    else:
+        form = AddEventForm()
+        args['form'] = form
+        return render(request, 'clubs/addEvent.html', args)
 
 
