@@ -31,7 +31,7 @@
     <ul>
         {% for article in club.news_set.all%}
         <li>{{article.title}}
-        <a href="#">Delete</a>
+        <a href="{% url 'deleteNews' club.club_url article.id%}">Delete</a>
         </li>
         {% endfor %}
     </ul>

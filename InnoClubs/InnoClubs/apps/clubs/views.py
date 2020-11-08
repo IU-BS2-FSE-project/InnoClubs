@@ -67,9 +67,8 @@ def administration(request, club_url):
     return render(request, "clubs/administrationOfClub.html", args)
 
 
-def delete_news(request, article_id):
-    article = News.objects.filter(id=article_id)
-    club_url = article.club.club_url
+def deleteNews(request, club_url, article_id):
+    article = News.objects.get(id=article_id)
     article.delete()
     return HttpResponseRedirect(reverse('administration', args=(club_url,)))
 
