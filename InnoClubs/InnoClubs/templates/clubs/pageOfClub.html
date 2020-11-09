@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubPage.css' %}">
     {% endblock %}
     {% block content %}
-        <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
+        <img src="{{ club.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
         <ul class="menu">
             <li><a href="#">Join Club</a></li>
             {% if rights %}
@@ -14,15 +14,15 @@
             {% endif %}
             <li><a href="#">Club's Chat</a></li>
             {% if rights == "Admin"%}
-            <li><a href="{% url 'administration' infoFromDb.club_url %}">Club's Administration</a></li>
+            <li><a href="{% url 'administration' club.club_url %}">Club's Administration</a></li>
             {% endif %}
             {% if infoFromDb in user.student.subscriptions.all %}
-                <li><a href="{% url 'unsubscribe' infoFromDb.club_url %}">Unsubscribe</a></li>
+                <li><a href="{% url 'unsubscribe' club.club_url %}">Unsubscribe</a></li>
             {% else %}
-                <li><a href="{% url 'subscribe' infoFromDb.club_url %}">Subscribe</a></li>
+                <li><a href="{% url 'subscribe' club.club_url %}">Subscribe</a></li>
             {% endif %}
         </ul>
-        <h1>{{ infoFromDb.club_title }}</h1>
-        {{ infoFromDb.club_info }} <br>
-        Our chat in telegram: {{ infoFromDb.club_chat }}
+        <h1>{{ club.club_title }}</h1>
+        {{ club.club_info }} <br>
+        Our chat in telegram: {{ club.club_chat }}
     {% endblock %}

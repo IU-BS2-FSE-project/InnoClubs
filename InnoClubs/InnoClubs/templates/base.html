@@ -10,30 +10,43 @@
 </head>
 <body>
 <header>
-    <div id="logo">
-        <a href="/" tittle="Перейти на главную"><span>InnoClubs</span></a>
+    <div class="container">
+        <div id="leftHeader">
+            <a href="/" title="Go to the main page"><span>InnoClubs</span></a>
+        </div>
+        <div id="rightHeader">
+            <div class="dropdownMenu">
+                <button class="dropdownButton">≡</button>
+                <div class="dropdownMenuContents">
+                    {% if username %}
+                        <a href='#'>Logged in as {{username}}</a>
+                    {% endif %}
+                    <a href='#'>Menu entry 1</a>
+                    <a href='#'>Menu entry 2</a>
+                    <a href='#'>Menu entry 3</a>
+                    {% if username %}
+                        <a href='auth/logout'>Log out</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% if username %}
-    <div id="logout">
-        <a href='auth/logout'>Log out</a>|{{username}}
-    </div>
-    {% endif %}
 </header>
-<br>
 <br>
 <div class="wrapper">
     {% block content %}{% endblock %}
 </div>
-<br>
-
 <footer>
-    <div id="rights">
-        Все права защищены &copy;
-    </div>
+    <div class="container">
+        <div id="rights">
+            Все права защищены &copy;
+        </div>
 
-    <div id="info">
-        <h5>Contacts:</h5>
-        <p>8800-555-35-35|FAQ@innopolis.university</p>
+        <div id="info">
+            <h5>Contacts:</h5>
+            <p>8800-555-35-35</p>
+            <p>FAQ@innopolis.university</p>
+        </div>
     </div>
 </footer>
 </body>

@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-
 from .forms import AddNewsForm, AddEventForm
-from .models import Club, Student, ClubAdmin, News
+from .models import Club, Student, ClubAdmin, News, ClubType
 from django.http import HttpResponseRedirect
 
 
 # if user is not logged in => redirect to the auth/
 # if user is logged in => show main page
-# args['infoFromDb'] = .... means that we add information of all the clubs from database to the args
+# args['infoFromDb'] = .... means that we add information of all the clubs
+# from database to the args
 def main(request):
     args = {}
     if auth.get_user(request).username:
@@ -19,6 +19,12 @@ def main(request):
             args['infoFromDb'] = Club.objects.all()
         except ObjectDoesNotExist:
             args['infoFromDb'] = None
+
+        try:
+            args['clubTypeList'] = ClubType.objects.all()
+        except ObjectDoesNotExist:
+            args['clubTypeList'] = None
+
         return render(request, "clubs/main.html", args)
     else:
         return redirect("auth/")
@@ -26,8 +32,10 @@ def main(request):
 
 # if user is not logged in => redirect to the auth/
 # if user is logged in => show main page
-# args['infoFromDb'] = Club.objects.get(club_url=club_url)
-# means that we add information of the exactly one club that was accessed
+
+# args['infoFromDb'] = Club.objects.get(club_url=club_url) means that we add
+# information of the exactly one club that was accessed
+
 def ClubPage(request, club_url):
     args = {}
     if auth.get_user(request):
@@ -37,7 +45,7 @@ def ClubPage(request, club_url):
             if record.student == user.student:
                 args['rights'] = record.rights
         args['user'] = user
-        args['infoFromDb'] = club
+        args['club'] = club
 
         return render(request, "clubs/pageOfClub.html", args)
     else:
@@ -116,3 +124,31 @@ def addEvent(request, club_url):
         return render(request, 'clubs/addEvent.html', args)
 
 
+def clubTypes(request):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    try:
+        args['clubs'] = Club.objects.all()
+    except ObjectDoesNotExist:
+        args['clubs'] = None
+
+    return render(request, "clubs/clubTypes.html", args)
+
+
+def set_assistant(request, club_url, person_id):
+    admin = ClubAdmin()
+    admin.student = Student.objects.get(id=person_id)
+    admin.club = Club.objects.get(club_url=club_url)
+    admin.rights = "Assistant"
+    admin.save()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+
+def downgrade(request, club_url, admin_id):
+    admin = ClubAdmin(id=admin_id)
+    if admin.rights == "Assistant":
+        admin.delete()
+    elif admin.rights == "Admin":
+        admin.rights = "Assistant"
+        admin.save()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))

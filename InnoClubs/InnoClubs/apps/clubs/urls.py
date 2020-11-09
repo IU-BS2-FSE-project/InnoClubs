@@ -8,12 +8,15 @@ urlpatterns = [
     # <str:club_url> means that we can access any club using club_url(we set club_url for each club in database)
     # for example club_url for the sport club is sportClub
     # we can access page of this club by 127.0.0.1:8000/sportClub
-    path('<str:club_url>', views.ClubPage, name='clubPage'),
-    path('<str:club_url>/subscribe/', views.subscribe, name='subscribe'),
-    path('<str:club_url>/unsubscribe/', views.unsubscribe, name='unsubscribe'),
-    path('<str:club_url>/administration/', views.administration, name='administration'),
-    path('<str:club_url>/administration/<str:article_id>/deleteNews/', views.deleteNews, name='deleteNews'),
-    path('<str:club_url>/administration/addNews/', views.addNews, name='addNews'),
-    path('<str:club_url>/administration/addEvent/', views.addEvent, name='addEvent'),
+    path('type/', views.clubTypes, name='clubTypes'),
+    path('type/<str:club_url>', views.ClubPage, name='clubPage'),
+    path('type/<str:club_url>/subscribe/', views.subscribe, name='subscribe'),
+    path('type/<str:club_url>/unsubscribe/', views.unsubscribe, name='unsubscribe'),
+    path('type/<str:club_url>/administration/', views.administration, name='administration'),
+    path('type/<str:club_url>/administration/<str:article_id>/deleteNews/', views.deleteNews, name='deleteNews'),
+    path('type/<str:club_url>/administration/<str:person_id>/setAssistant/', views.set_assistant, name='set_assistant'),
+    path('type/<str:club_url>/administration/<str:admin_id>/downgrade/', views.downgrade, name='downgrade'),
+    path('type/<str:club_url>/administration/addNews/', views.addNews, name='addNews'),
+    path('type/<str:club_url>/administration/addEvent/', views.addEvent, name='addEvent'),
 
 ]

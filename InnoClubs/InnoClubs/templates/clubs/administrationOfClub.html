@@ -48,14 +48,14 @@
                 <a href="#">Downgrade</a>
             {% elif admin.rights == "Assistant" %}
                 <a href="#">Set as administrator</a>
-                <a href="#">Downgrade</a>
+                <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
             {% endif %}
         {% endfor %}
 
         {% for person in students %}
         {% if person not in admins_list %}
             <li>{{ person.user.first_name }} {{person.user.last_name}}({{person.user.email}}) Club Member
-            <a href="#">Set as assistance</a>
+            <a href="{% url 'set_assistant' club.club_url person.id%}">Set as assistant</a>
             <a href="#">Kick</a>
         {% endif %}
         {% endfor %}

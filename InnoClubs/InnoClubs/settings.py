@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import os, sys
+import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +24,6 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['FSE_DJANGO_KEY']
-print(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,16 +94,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'UserAttributeSimilarityValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'MinimumLengthValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'CommonPasswordValidator'),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': ('django.contrib.auth.password_validation.'
+                 'NumericPasswordValidator'),
     },
 ]
 
@@ -139,5 +143,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = '*********'  # some gmail account with https://myaccount.google.com/lesssecureapps is turned on
+# some gmail account with
+# https://myaccount.google.com/lesssecureapps is turned on
+EMAIL_HOST_USER = '*********'
 EMAIL_HOST_PASSWORD = '*******'  # password for this account
