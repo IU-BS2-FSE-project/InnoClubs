@@ -16,7 +16,7 @@
             {% if rights == "Admin"%}
             <li><a href="{% url 'administration' club.club_url %}">Club's Administration</a></li>
             {% endif %}
-            {% if infoFromDb in user.student.subscriptions.all %}
+            {% if club in user.student.subscriptions.all %}
                 <li><a href="{% url 'unsubscribe' club.club_url %}">Unsubscribe</a></li>
             {% else %}
                 <li><a href="{% url 'subscribe' club.club_url %}">Subscribe</a></li>

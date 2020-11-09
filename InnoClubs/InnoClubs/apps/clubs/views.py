@@ -145,10 +145,24 @@ def set_assistant(request, club_url, person_id):
 
 
 def downgrade(request, club_url, admin_id):
-    admin = ClubAdmin(id=admin_id)
+    admin = ClubAdmin.objects.get(id=admin_id)
     if admin.rights == "Assistant":
         admin.delete()
     elif admin.rights == "Admin":
         admin.rights = "Assistant"
         admin.save()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+
+def set_admin(request, club_url, admin_id):
+    admin = ClubAdmin.objects.get(id=admin_id)
+    if admin.rights == "Assistant":
+        admin.rights = "Admin"
+        admin.save()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+
+def kick(request, club_url, person_id):
+    club = Club.objects.get(club_url=club_url)
+    club.student_set.remove(person_id)
     return HttpResponseRedirect(reverse('administration', args=(club_url,)))

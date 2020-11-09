@@ -45,9 +45,9 @@
             {{admin.rights}}
             {% if admin.rights == "Admin" %}   <!--Вы не поверите сколько времени я думал как бы это правильно вывести-->
                 <a href="#" >Set as administrator</a><!--it should stay without any link-->
-                <a href="#">Downgrade</a>
+                <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
             {% elif admin.rights == "Assistant" %}
-                <a href="#">Set as administrator</a>
+                <a href="{% url 'set_admin' club.club_url admin.id%}">Set as administrator</a>
                 <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
             {% endif %}
         {% endfor %}
@@ -56,7 +56,7 @@
         {% if person not in admins_list %}
             <li>{{ person.user.first_name }} {{person.user.last_name}}({{person.user.email}}) Club Member
             <a href="{% url 'set_assistant' club.club_url person.id%}">Set as assistant</a>
-            <a href="#">Kick</a>
+            <a href="{% url 'kick' club.club_url person.id%}">Kick</a>
         {% endif %}
         {% endfor %}
 
