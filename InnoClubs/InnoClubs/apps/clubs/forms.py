@@ -1,17 +1,22 @@
 from django import forms
-from .models import News, Event
+from .models import News, Event, Club
 
 
-class ClubInfoChangeForm(forms.Form):
-    logo = forms.ImageField()
-    name = forms.CharField(max_length=32)
-    info = forms.Textarea()
+class ClubInfoChangeForm(forms.ModelForm):
+    club_logo = forms.ImageField(required=False)
+    club_info = forms.CharField(widget=forms.Textarea())
+    club_chat = forms.CharField(max_length=32,
+                                widget=forms.TextInput(), label='Club chat', required=False)
+
+    class Meta:
+        model = Club
+        fields = ('club_logo', 'club_info', 'club_chat')
 
 
 class AddNewsForm(forms.ModelForm):
     title = forms.CharField(max_length=32,
                             widget=forms.TextInput(attrs={'placeholder': 'Enter title'}), label='News title',
-                            help_text='Not more than 32 symbols', )
+                            help_text='Not more than 32 symbols')
     info = forms.CharField(widget=forms.Textarea(), )
     due_date = forms.DateTimeField(widget=forms.SelectDateWidget,
                                    label='Due Date',
@@ -33,4 +38,4 @@ class AddEventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('one_time', 'date', 'week_day',  'text', 'place', 'start_time', 'end_time')
+        fields = ('one_time', 'date', 'week_day', 'text', 'place', 'start_time', 'end_time')

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from .forms import AddNewsForm, AddEventForm
+from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm
 from .models import Club, Student, ClubAdmin, News, ClubType
 from django.http import HttpResponseRedirect
 
@@ -76,8 +76,25 @@ def administration(request, club_url):
     for record in club.clubadmin_set.all():
         admins_list.append(record.student)
     args['admins_list'] = admins_list
-
-    return render(request, "clubs/administrationOfClub.html", args)
+    if request.method == "POST":
+        form = ClubInfoChangeForm(request.POST, request.FILES)
+        if form.is_valid():
+            updates = form.save(commit=False)
+            club.club_info = updates.club_info
+            if updates.club_logo:
+                club.club_logo = updates.club_logo
+            club.club_chat = updates.club_chat
+            club.save()
+            return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+        else:
+            args['form'] = form
+            return render(request, 'clubs/administrationOfClub.html', args)
+    else:
+        form = ClubInfoChangeForm(initial={'club_info': club.club_info,
+                                           'club_chat': club.club_chat,
+                                           'club_logo': club.club_logo})
+        args['form'] = form
+        return render(request, 'clubs/administrationOfClub.html', args)
 
 
 def deleteNews(request, club_url, article_id):

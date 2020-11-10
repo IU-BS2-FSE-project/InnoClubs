@@ -5,19 +5,29 @@
 {% block title %}InnoClubs{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/administration.css' %}">{% endblock %}
 
 {% block content %}
     <h1>{{ club.club_title }} administration</h1>
     <hr>
 
-    <h2>Club description</h2>
-    <-- put input.text here -->
-    <h2>Telegram Chat</h2>
-    <-- put input.text here -->
-        <br>
-    <-- put button add picture here -->
-    <hr>
+   <form method="POST">{% csrf_token %}
+         {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+         </div>
+        {% endfor %}
+        <button type="submit">Confirm</button>
+    </form>
 
     <a href="{% url 'addEvent' club.club_url %}">Add event</a>
     <ul>
@@ -41,10 +51,10 @@
     <-- put input.txt search here -->
     <ol>
         {% for admin in club.clubadmin_set.all %}
-        <li>{{ admin.student.user.first_name }} {{admin.student.user.last_name}}({{admin.student.user.email}})
+        <li>{{ admin.student.user.first_name }} {{admin.student.user.last_name}} ({{admin.student.user.email}})
             {{admin.rights}}
             {% if admin.rights == "Admin" %}   <!--Вы не поверите сколько времени я думал как бы это правильно вывести-->
-                <a href="#" >Set as administrator</a><!--it should stay without any link-->
+                <a class="blocked" href="#" >Set as administrator</a><!--it should stay without any link-->
                 <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
             {% elif admin.rights == "Assistant" %}
                 <a href="{% url 'set_admin' club.club_url admin.id%}">Set as administrator</a>

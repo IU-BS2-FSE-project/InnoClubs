@@ -5,23 +5,25 @@ from django.dispatch import receiver
 
 
 class Club(models.Model):
-    club_title = models.CharField("Title of the club", max_length=200)
+    club_title = models.CharField("Title of the club", max_length=200, editable=False)
     club_info = models.CharField("Information of the club", max_length=2000)
     club_logo = models.ImageField(upload_to="static/img/", null=True)
     club_url = models.CharField(
-        "Url of the club(For example testUrl)", max_length=200)
+        "Url of the club(For example testUrl)", max_length=200, editable=False)
     club_chat = models.CharField("Telegram chat", max_length=200, null=True)
 
     def __str__(self):
         return self.club_title
 
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     hours = models.TimeField("Hours", null=True, blank=True)
-    # how to use info from this field - https://metanit.com/python/django/5.7.php
+    # how to use info from ManyToManyField - https://metanit.com/python/django/5.7.php
     subscriptions = models.ManyToManyField(Club, blank=True)
+
+    def __str__(self):
+        return self.user
 
 
 class ClubAdmin(models.Model):
@@ -29,13 +31,19 @@ class ClubAdmin(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     rights = models.CharField("Rights", max_length=9)
 
+    def __str__(self):
+        return self.club.club_title + " " + self.student.user.username
+
 
 class News(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     title = models.CharField("Title", max_length=32)
     info = models.TextField("Info", null=True, blank=True)
     publication_date = models.DateTimeField("Publication_date", auto_now_add=True)
-    due_date = models.DateField("Due_date")
+    due_date = models.DateField("Due_date", null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Event(models.Model):
