@@ -11,7 +11,7 @@
     <h1>{{ club.club_title }} administration</h1>
     <hr>
 
-   <form method="POST">{% csrf_token %}
+   <form method="POST" enctype="multipart/form-data">{% csrf_token %}
          {% for error in form.non_field_errors %}
         <div class="alert alert-danger">
             <strong>{{ error|escape }}</strong>
