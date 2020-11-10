@@ -1,0 +1,4 @@
+pycodestyle:  # Valid if scanner.linter is pycodestyle
+    exclude: ['*/migrations/*']  # File path patterns to exclude
+
+no_blank_comment: False  # If True, no comment is made on PR without any errors.
