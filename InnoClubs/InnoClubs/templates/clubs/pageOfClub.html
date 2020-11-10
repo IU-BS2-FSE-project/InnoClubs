@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubPage.css' %}">
     {% endblock %}
     {% block content %}
-        <img src="{{ club.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
+        <img src="{{ club.club_logo.url }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
         <ul class="menu">
             <li><a href="#">Join Club</a></li>
             {% if rights %}
