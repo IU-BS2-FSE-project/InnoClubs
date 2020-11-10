@@ -29,11 +29,23 @@
         <button type="submit">Confirm</button>
     </form>
 
-    <a href="{% url 'addEvent' club.club_url %}">Add event</a>
+    <a href="{% url 'add_event' club.club_url %}">Add event</a>
+    <a href="{% url 'add_one_time_event' club.club_url %}">Add One time event</a>
     <ul>
-        <li>Every <--day of week-->, <--time start--> - <--time end--> (aud. <--place-->)</li>
-        <li>Event 2</li>
-        <li>Event 3</li>
+        {% for event in club.event_set.all%}
+        <li>{{event.title}}. Every {{event.week_day}}, {{event.start_time}} - {{event.end_time}} ({{event.place}})
+        <a href="{% url 'del_event' club.club_url event.id%}">Delete</a>
+        </li>
+        {% endfor %}
+        {% for event in club.onetimeevent_set.all%}
+        <li>{{event.title}} {{event.date}}, {{event.start_time}}
+            {% if event.end_time %}}
+            - {{event.end_time}}
+            {% endif %}
+            ({{event.place}})
+        <a href="{% url 'del_otevent' club.club_url event.id%}">Delete</a>
+        </li>
+        {% endfor %}
     </ul>
     <hr>
 

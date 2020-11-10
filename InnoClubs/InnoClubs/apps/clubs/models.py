@@ -23,7 +23,7 @@ class Student(models.Model):
     subscriptions = models.ManyToManyField(Club, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class ClubAdmin(models.Model):
@@ -56,20 +56,33 @@ class Event(models.Model):
         ('Fri.', 'Friday'),
         ('Sat.', 'Saturday'),
     )
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    title = models.CharField(max_length=16)
+    text = models.TextField()
     week_day = models.CharField(max_length=8, choices=CHOICES, null=True, blank=True)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    place = models.CharField(max_length=15)
-    text = models.TextField()
-    one_time = models.BooleanField(default=False)
+    place = models.CharField(max_length=16)
+    participants = models.ManyToManyField(Student, blank=True)
+    img = models.ImageField(upload_to="static/img/events", null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class OneTimeEvent(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    title = models.CharField(max_length=16)
+    text = models.TextField()
     date = models.DateField(null=True, blank=True)
     start_time = models.TimeField()
-    end_time = models.TimeField()
+    end_time = models.TimeField(null=True, blank=True)
     place = models.CharField(max_length=15)
-    text = models.TextField()
+    participants = models.ManyToManyField(Student, blank=True)
+    img = models.ImageField(upload_to="static/img/events", null=True)
+
+    def __str__(self):
+        return self.title
 
 
 # these two methods need for adding default Users records to custom Student

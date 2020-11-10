@@ -1,5 +1,5 @@
 from django import forms
-from .models import News, Event, Club
+from .models import News, Event, Club, OneTimeEvent
 
 
 class ClubInfoChangeForm(forms.ModelForm):
@@ -28,14 +28,26 @@ class AddNewsForm(forms.ModelForm):
 
 
 class AddEventForm(forms.ModelForm):
-    text = forms.CharField(widget=forms.Textarea(), )
-    date = forms.DateTimeField(widget=forms.SelectDateWidget,
-                               label='Due Date',
-                               help_text='After this date the news automatically deletes')
-    one_time = forms.BooleanField(widget=forms.CheckboxInput)
-    start_time = forms.TimeField(widget=forms.TimeInput)
-    end_time = forms.TimeField(widget=forms.TimeInput)
+    title = forms.CharField(widget=forms.TextInput(), label="Title")
+    text = forms.CharField(widget=forms.Textarea(), label="Info")
+    start_time = forms.TimeField(widget=forms.TimeInput, label="Start time", help_text="hh:mm")
+    end_time = forms.TimeField(widget=forms.TimeInput, label="End time", help_text="hh:mm")
+    img = forms.ImageField(required=False)
 
     class Meta:
         model = Event
-        fields = ('one_time', 'date', 'week_day', 'text', 'place', 'start_time', 'end_time')
+        fields = ('title', 'text', 'week_day', 'place', 'start_time', 'end_time', 'img')
+
+
+class AddOneTimeEventForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(), label="Title")
+    text = forms.CharField(widget=forms.Textarea(), label="Info")
+    date = forms.DateTimeField(widget=forms.SelectDateWidget,
+                               label='Date')
+    start_time = forms.TimeField(widget=forms.TimeInput, label="Start time", help_text="hh:mm")
+    end_time = forms.TimeField(widget=forms.TimeInput, label="End time", required=False, help_text="hh:mm")
+    img = forms.ImageField(required=False)
+
+    class Meta:
+        model = OneTimeEvent
+        fields = ('title', 'text', 'date', 'place', 'start_time', 'end_time', 'img')

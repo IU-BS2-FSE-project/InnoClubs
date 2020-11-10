@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm
-from .models import Club, Student, ClubAdmin, News, ClubType
+from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm, AddOneTimeEventForm
+from .models import Club, Student, ClubAdmin, News, ClubType, Event, OneTimeEvent
 from django.http import HttpResponseRedirect
 
 
@@ -69,32 +69,37 @@ def unsubscribe(request, club_url):
 def administration(request, club_url):
     args = {}
     club = Club.objects.get(club_url=club_url)
-    args['user'] = auth.get_user(request)
+    user = auth.get_user(request)
+    args['user'] = user
     args['club'] = club
     args['students'] = Student.objects.filter(subscriptions__club_url=club_url)
+    isAdmin = ClubAdmin.objects.get(club=club, student=user.student)
     admins_list = []
     for record in club.clubadmin_set.all():
         admins_list.append(record.student)
     args['admins_list'] = admins_list
-    if request.method == "POST":
-        form = ClubInfoChangeForm(request.POST, request.FILES)
-        if form.is_valid():
-            updates = form.save(commit=False)
-            club.club_info = updates.club_info
-            if updates.club_logo:
-                club.club_logo = updates.club_logo
-            club.club_chat = updates.club_chat
-            club.save()
-            return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+    if isAdmin.rights == "Admin":
+        if request.method == "POST":
+            form = ClubInfoChangeForm(request.POST, request.FILES)
+            if form.is_valid():
+                updates = form.save(commit=False)
+                club.club_info = updates.club_info
+                if updates.club_logo:
+                    club.club_logo = updates.club_logo
+                club.club_chat = updates.club_chat
+                club.save()
+                return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+            else:
+                args['form'] = form
+                return render(request, 'clubs/administrationOfClub.html', args)
         else:
+            form = ClubInfoChangeForm(initial={'club_info': club.club_info,
+                                               'club_chat': club.club_chat,
+                                               'club_logo': club.club_logo})
             args['form'] = form
             return render(request, 'clubs/administrationOfClub.html', args)
     else:
-        form = ClubInfoChangeForm(initial={'club_info': club.club_info,
-                                           'club_chat': club.club_chat,
-                                           'club_logo': club.club_logo})
-        args['form'] = form
-        return render(request, 'clubs/administrationOfClub.html', args)
+        return redirect('/')
 
 
 def deleteNews(request, club_url, article_id):
@@ -122,23 +127,42 @@ def addNews(request, club_url):
         return render(request, 'clubs/addNews.html', args)
 
 
-def addEvent(request, club_url):
+def add_event(request, club_url):
     args = {}
     if request.method == "POST":
-        form = AddEventForm(request.POST)
+        form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
             args['form'] = form
 
-            new = form.save(commit=False)
-            new.club = Club.objects.get(club_url=club_url)
-            new.save()
-            return HttpResponseRedirect(reverse('addEvent', args=(club_url,)))
+            event = form.save(commit=False)
+            event.club = Club.objects.get(club_url=club_url)
+            event.save()
+            return HttpResponseRedirect(reverse('add_event', args=(club_url,)))
         else:
             return render(request, 'clubs/addEvent.html', args)
     else:
         form = AddEventForm()
         args['form'] = form
         return render(request, 'clubs/addEvent.html', args)
+
+
+def add_one_time_event(request, club_url):
+    args = {}
+    if request.method == "POST":
+        form = AddOneTimeEventForm(request.POST, request.FILES)
+        if form.is_valid():
+            args['form'] = form
+
+            event = form.save(commit=False)
+            event.club = Club.objects.get(club_url=club_url)
+            event.save()
+            return HttpResponseRedirect(reverse('add_one_time_event', args=(club_url,)))
+        else:
+            return render(request, 'clubs/addOneTimeEvent.html', args)
+    else:
+        form = AddOneTimeEventForm()
+        args['form'] = form
+        return render(request, 'clubs/addOneTimeEvent.html', args)
 
 
 def clubTypes(request):
@@ -182,4 +206,14 @@ def set_admin(request, club_url, admin_id):
 def kick(request, club_url, person_id):
     club = Club.objects.get(club_url=club_url)
     club.student_set.remove(person_id)
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+def del_event(request, club_url, event_id):
+    event = Event.objects.get(id=event_id)
+    event.delete()
+    return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
+def del_otevent(request, club_url, event_id):
+    event = OneTimeEvent.objects.get(id=event_id)
+    event.delete()
     return HttpResponseRedirect(reverse('administration', args=(club_url,)))

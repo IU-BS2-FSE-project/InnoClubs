@@ -19,6 +19,8 @@ urlpatterns = [
     path('type/<str:club_url>/administration/<str:admin_id>/setAdmin/', views.set_admin, name='set_admin'),
     path('type/<str:club_url>/administration/<str:admin_id>/downgrade/', views.downgrade, name='downgrade'),
     path('type/<str:club_url>/administration/addNews/', views.addNews, name='addNews'),
-    path('type/<str:club_url>/administration/addEvent/', views.addEvent, name='addEvent'),
-
+    path('type/<str:club_url>/administration/addEvent/', views.add_event, name='add_event'),
+    path('type/<str:club_url>/administration/<str:event_id>/deleteEvent/', views.del_event, name='del_event'),
+    path('type/<str:club_url>/administration/<str:event_id>/deleteOTEvent/', views.del_otevent, name='del_otevent'),
+    path('type/<str:club_url>/administration/addOneTimeEvent/', views.add_one_time_event, name='add_one_time_event'),
 ]
