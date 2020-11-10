@@ -24,7 +24,7 @@
             {% for club in user.student.subscriptions.all %}
                 {% for event in club.event_set.all%}
                     <a class="clubEvent" href="{{club.club_url}}">
-                                <img class="clubEventPicture" src="{{event.img}}" width="64px" height="64px">
+                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px">
                                 <div class="clubEventCenter">
                                     <span class="clubEventName overflowText">{{event.title}}</span>
                                     <span class="clubEventDescr description overflowText">{{event.text}}</span>
@@ -38,7 +38,7 @@
 
                 {% for event in club.onetimeevent_set.all%}
                     <a class="clubEvent" href="{{club.club_url}}">
-                                <img class="clubEventPicture" src="{{event.img}}" width="64px" height="64px">
+                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px">
                                 <div class="clubEventCenter">
                                     <span class="clubEventName overflowText">{{event.title}}</span>
                                     <span class="clubEventDescr description overflowText">{{event.text}}</span>
