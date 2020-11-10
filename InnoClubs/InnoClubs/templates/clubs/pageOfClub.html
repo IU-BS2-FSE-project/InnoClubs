@@ -25,4 +25,30 @@
         <h1>{{ club.club_title }}</h1>
         {{ club.club_info }} <br>
         Our chat in telegram: {{ club.club_chat }}
+<br>
+<hr>
+<ul>
+        {% for event in club.event_set.all%}
+        <li>{{event.title}}. Every {{event.week_day}}, {{event.start_time}} - {{event.end_time}} ({{event.place}})
+            <br>{{event.text}}
+        </li>
+        {% endfor %}
+        {% for event in club.onetimeevent_set.all%}
+        <li>{{event.title}} {{event.date}}, {{event.start_time}}
+            {% if event.end_time %}}
+            - {{event.end_time}}
+            {% endif %}
+            ({{event.place}})<br>{{event.text}}
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for article in club.news_set.all%}
+        <li>{{article.title}} {{article.publication_date}}<br>
+            {{article.info}}
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
     {% endblock %}

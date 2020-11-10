@@ -137,7 +137,8 @@ def add_event(request, club_url):
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
-            return HttpResponseRedirect(reverse('add_event', args=(club_url,)))
+            status = "succsess"
+            return HttpResponseRedirect(reverse('add_event', args=(club_url, )))
         else:
             return render(request, 'clubs/addEvent.html', args)
     else:
@@ -208,10 +209,12 @@ def kick(request, club_url, person_id):
     club.student_set.remove(person_id)
     return HttpResponseRedirect(reverse('administration', args=(club_url,)))
 
+
 def del_event(request, club_url, event_id):
     event = Event.objects.get(id=event_id)
     event.delete()
     return HttpResponseRedirect(reverse('administration', args=(club_url,)))
+
 
 def del_otevent(request, club_url, event_id):
     event = OneTimeEvent.objects.get(id=event_id)
