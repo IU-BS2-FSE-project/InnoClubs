@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('logout/', views.logout, name='logout'),
-    path('main/', include('clubs.urls')),
+    # path('main/', include('clubs.urls')),
     path('reset_password/',
          auth_views.PasswordResetView.as_view(template_name="authorization/password_reset.html"),
          name="reset_password"),
