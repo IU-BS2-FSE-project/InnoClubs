@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 def main(request):
     args = {}
     if auth.get_user(request).username:
-        args['username'] = auth.get_user(request).username
+        args['user'] = auth.get_user(request)
         try:
             args['infoFromDb'] = Club.objects.all()
         except ObjectDoesNotExist:
@@ -113,12 +113,13 @@ def addNews(request, club_url):
     if request.method == "POST":
         form = AddNewsForm(request.POST)
         if form.is_valid():
+            args['form'] = form
+
             new = form.save(commit=False)
             new.club = Club.objects.get(club_url=club_url)
             new.save()
             return HttpResponseRedirect(reverse('addNews', args=(club_url,)))
         else:
-            args['form'] = form
             return render(request, 'clubs/addNews.html', args)
     else:
         form = AddNewsForm()
@@ -131,12 +132,13 @@ def add_event(request, club_url):
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
+            args['form'] = form
+
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
             return HttpResponseRedirect(reverse('add_event', args=(club_url, )))
         else:
-            args['form'] = form
             return render(request, 'clubs/addEvent.html', args)
     else:
         form = AddEventForm()
@@ -149,12 +151,13 @@ def add_one_time_event(request, club_url):
     if request.method == "POST":
         form = AddOneTimeEventForm(request.POST, request.FILES)
         if form.is_valid():
+            args['form'] = form
+
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
             return HttpResponseRedirect(reverse('add_one_time_event', args=(club_url,)))
         else:
-            args['form'] = form
             return render(request, 'clubs/addOneTimeEvent.html', args)
     else:
         form = AddOneTimeEventForm()
