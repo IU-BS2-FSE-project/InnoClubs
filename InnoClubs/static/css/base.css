@@ -53,7 +53,6 @@ header{
 
 header #leftHeader{
     margin: 10px;
-    width: 130px;
     float: left;
     font-size: 2em;
 }
@@ -63,6 +62,7 @@ header #leftHeader span{
 }
 
 header #rightHeader{
+    float: right;
     text-align: right;
     font-size: 1.5em;
 }
