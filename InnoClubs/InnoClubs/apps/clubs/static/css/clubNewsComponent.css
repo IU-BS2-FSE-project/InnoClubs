@@ -1,0 +1,31 @@
+#clubNewsGrid {
+    display: flex;
+    flex-direction: column;
+}
+
+.clubNews {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;    
+    color: black;
+}
+
+.clubNewsTitle {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+.clubNewsTimeDate {
+    margin: 0px;
+}
+
+.description {
+    color: #6a737d;
+    font-size: 14px;
+}
+
+.overflowText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}

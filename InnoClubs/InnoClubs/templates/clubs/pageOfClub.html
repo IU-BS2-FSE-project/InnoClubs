@@ -1,52 +1,58 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
 
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{% block title %}{{ infoFromDb.club_title }}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesForPageOfClubs.css' %}">
-    {% block head %}{% endblock %}
-</head>
-<body>
-<header>
-    <div id="logo">
-        <a href="/" tittle="Перейти на главную"><span>InnoClubs</span></a>
-    </div>
-    {% if username %}
-        <div id="logout">
-            <a href='auth/logout'>Log out</a> | {{ username }}
-        </div>
-    {% endif %}
-</header>
-<br>
-<br>
+{% block title %}
+    {{ infoFromDb.club_title }}
+{% endblock %}
 
-<div class="wrapper">
-    {% block content %}
-        <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
-        <ul class="menu">
-            <li><a href="#">Join Club</a></li>
-            <li><a href="#">Check attendance</a></li>
-            <li><a href="#">Club's Chat</a></li>
-            <li><a href="#">Club Administrator</a></li>
-        </ul>
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pageOfClub.css' %}">c
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubNewsComponent.css' %}">
+{% endblock %}
+
+{% block content %}
+    <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170">
+
+
+    <div id="clubGrid">
         <h1>{{ infoFromDb.club_title }}</h1>
-        {{ infoFromDb.club_info }} <br>
-        Our chat in telegram: {{ infoFromDb.club_chat }}
-    {% endblock %}
-</div>
-<br>
 
-<footer>
-    <div id="rights">
-        Все права защищены &copy;
+        {% if true %}
+            <a href="#" class="action">JOIN</a>
+        {% else %}
+            <a href="#" class="action">LEAVE</a>
+        {% endif %}
+
+        <a href="#" class="action">ATTENDANCE</a>
+
+        {% if not false %}
+            <a href="#" class="action">CONTROL PANEL</a>   
+        {% endif %}
     </div>
 
-    <div id="info">
-        <h5>Contacts:</h5>
-        <p>8800-555-35-35|FAQ@innopolis.university</p>
+    <div id="contacts">
+        <span class="contact">Url: {{ infoFromDb.club_url }}</span>
+        <span class="contact">Chat: {{ infoFromDb.club_chat }}</span>
+        <span class="contact">Leader: {{ leader_from_somewhere }}</span>
     </div>
-</footer>
-</body>
-</html>
+
+    <div id="clubDescription">
+        {{ infoFromDb.club_info }}
+    </div>
+
+    <div id="feed">
+        {% block clubEvents %}
+            <div id="clubEvents">
+                <h2>Upcoming activities</h2>
+                {% include "./clubEventsComponent.html" %}
+            </div>
+        {% endblock %}
+        {% block clubNews %}
+            <div id="clubNews">
+                <h2>News</h2>
+                {% include "./clubNewsComponent.html" %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

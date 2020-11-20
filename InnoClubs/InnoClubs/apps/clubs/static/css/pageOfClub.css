@@ -1,0 +1,67 @@
+h1 {
+    margin: 0px;
+    margin-right: 20px;
+    align-self: center;
+    font-family: Arial, sans-serif;
+    color: #4B5259;
+    font-size: 30px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-right: 20px;
+    align-self: center;
+    font-family: Arial, sans-serif;
+    color: #6a737d;
+    font-size: 24px;
+}
+
+#clubGrid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.action {
+    padding: 10px 10px;
+    margin-right:10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6a737d;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+}
+
+#contacts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.contact {
+    color: #6a737d;
+    margin-right: 20px;
+}
+
+#clubDescription {
+    color: #6a737d;
+}
+
+#feed {
+    display: flex;
+}
+
+#clubEvents {
+    width: 640px;
+}
+
+#clubNews {
+    width: 320px;
+    margin-left: 24px;
+}
