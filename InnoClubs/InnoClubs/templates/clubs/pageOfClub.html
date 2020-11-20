@@ -6,14 +6,13 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/pageOfClub.css' %}">c
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pageOfClub.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubNewsComponent.css' %}">
 {% endblock %}
 
 {% block content %}
-    <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" width="60%" height="170">
-
+    <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" >
 
     <div id="clubGrid">
         <h1>{{ infoFromDb.club_title }}</h1>
@@ -41,18 +40,16 @@
         {{ infoFromDb.club_info }}
     </div>
 
-    <div id="feed">
-        {% block clubEvents %}
-            <div id="clubEvents">
-                <h2>Upcoming activities</h2>
-                {% include "./clubEventsComponent.html" %}
-            </div>
-        {% endblock %}
-        {% block clubNews %}
-            <div id="clubNews">
-                <h2>News</h2>
-                {% include "./clubNewsComponent.html" %}
-            </div>
-        {% endblock %}
-    </div>
+    {% block clubEvents %}
+        <div id="clubEvents">
+            <h2>Upcoming activities</h2>
+            {% include "./clubEventsComponent.html" %}
+        </div>
+    {% endblock %}
+    {% block clubNews %}
+        <div id="clubNews">
+            <h2>News</h2>
+            {% include "./clubNewsComponent.html" %}
+        </div>
+    {% endblock %}
 {% endblock %}
