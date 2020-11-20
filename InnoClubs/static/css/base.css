@@ -63,11 +63,8 @@ header #leftHeader span{
 }
 
 header #rightHeader{
-    width: 40%;
-    float: right;
     text-align: right;
     font-size: 1.5em;
-    min-width: 220px;
 }
 
 .dropdownMenu{
