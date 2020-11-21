@@ -1,9 +1,9 @@
 h1 {
     margin-right: 20px;
+    margin-bottom: 20px;
     align-self: center;
-    font-family: Arial, sans-serif;
-    color: #4B5259;
     font-size: 30px;
+    font-weight: 700;
 }
 
 a.clubType {
@@ -60,9 +60,9 @@ a.clubEvent {
     -webkit-line-clamp: 3;
 }
 
-.description {
-    color: #6a737d;
-    font-size: 14px;
+.clubEvents {
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
 }
 
 #clubTypeGrid {

@@ -1,6 +1,6 @@
 {% load static %}
 <div id="clubEventGrid">
-    <h4>Regular events</h4>
+    <h3>Regular events</h3>
     {% for event in club.event_set.all%}
         <a class="clubEvent" href="{{club.club_url}}">
                     {% if event.img %}
@@ -18,7 +18,7 @@
                     <div class="clubEventParticipants description">{{event.participants.count}}</div>
         </a>
     {% endfor %}
-    <h4>One-time events</h4>
+    <h3>One-time events</h3>
     {% for event in club.onetimeevent_set.all%}
         <a class="clubEvent" href="{{club.club_url}}">
                     {% if event.img %}
