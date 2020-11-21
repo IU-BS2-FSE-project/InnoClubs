@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}{{ club.club_title }}{% endblock %}
 
 {% block title %}
-    {{ infoFromDb.club_title }}
+    {{ club.club_title }}
 {% endblock %}
 
 {% block head %}
@@ -12,32 +13,34 @@
 {% endblock %}
 
 {% block content %}
-    <img src="{{ infoFromDb.club_logo }}" alt="Avatar" class="avatar" >
+    <img src="{{ club.club_logo.url }}" alt="Avatar" class="avatar" >
 
     <div id="clubGrid">
-        <h1>{{ infoFromDb.club_title }}</h1>
+        <h1>{{ club.club_title }}</h1>
 
-        {% if true %}
-            <a href="#" class="action">JOIN</a>
+        {% if club in user.student.subscriptions.all %}
+            <a href="{% url 'unsubscribe' club.club_url %}" class="action">UNSUBSCRIBE</a>
         {% else %}
-            <a href="#" class="action">LEAVE</a>
+            <a href="{% url 'subscribe' club.club_url %}" class="action">SUBSCRIBE</a>
         {% endif %}
 
-        <a href="#" class="action">ATTENDANCE</a>
+        {% if rights %}
+            <a href="#" class="action">ATTENDANCE</a>
+        {% endif %}
 
-        {% if not false %}
-            <a href="#" class="action">CONTROL PANEL</a>   
+        {% if rights == "Admin" %}
+            <a href="{% url 'administration' club.club_url %}" class="action">CONTROL PANEL</a>   
         {% endif %}
     </div>
 
     <div id="contacts">
         <span class="contact">Url: {{ infoFromDb.club_url }}</span>
-        <span class="contact">Chat: {{ infoFromDb.club_chat }}</span>
+        <span class="contact">Chat: {{ club.club_chat }}</span>
         <span class="contact">Leader: {{ leader_from_somewhere }}</span>
     </div>
 
     <div id="clubDescription">
-        {{ infoFromDb.club_info }}
+        {{ club.club_info }}
     </div>
 
     {% block clubEvents %}
