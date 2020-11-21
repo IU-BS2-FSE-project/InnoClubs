@@ -10,7 +10,7 @@
         <ul class="menu">
             <li><a href="#">Join Club</a></li>
             {% if rights %}
-                <li><a href="#">Check attendance</a></li>
+                <li><a href="{% url 'events_list' club.club_url %}">Check attendance</a></li>
             {% endif %}
             <li><a href="#">Club's Chat</a></li>
             {% if rights == "Admin"%}
