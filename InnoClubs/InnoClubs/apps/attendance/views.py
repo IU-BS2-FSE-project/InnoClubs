@@ -39,7 +39,7 @@ def events_list(request, club_url):
     args['club'] = club
     args['events'] = list_event
     args['ot_events'] = list_otevent
-    args['date'] = datetime.datetime.now()
+    args['date'] = datetime.datetime.today()
     return render(request, "attendance/events_list.html", args)
 
 
@@ -64,14 +64,15 @@ def check_attendance(request, club_url, event_id):
     club = Club.objects.get(club_url=club_url)
     user = auth.get_user(request)
     event = Event.objects.get(id=event_id)
-    if Attendance.objects.get(event=event, date=datetime.datetime.today()):
-        attendance = Attendance.objects.get(event=event, date=datetime.datetime.today())
-    else:
-        attendance = Attendance()
-        attendance.date = datetime.datetime.today()
-        attendance.event = event
+    try:
+        attendance = Attendance.objects.get(event=event_id, date__date=datetime.date.today())
+    except ObjectDoesNotExist:
+        attendance = Attendance.objects.create(event=event, date=datetime.datetime.now())
         attendance.save()
 
     args['user'] = user
     args['club'] = club
+    args['attendance'] = attendance
+    args['check'] = datetime.date.today()
+
     return render(request, "attendance/check_attendance.html", args)

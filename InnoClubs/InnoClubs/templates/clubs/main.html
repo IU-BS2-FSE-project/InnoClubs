@@ -34,13 +34,13 @@
                                     <span class="clubEventDescr description overflowText">{{event.text}}</span>
                                 </div>
                                 <div class="clubEventTimeDate description">
-                                    {% if event.week_day == '0' %}Monday{%endif%}
-                                    {% if event.week_day == '1' %}Tuesday{%endif%}
-                                    {% if event.week_day == '2' %}Wednesday{%endif%}
-                                    {% if event.week_day == '3' %}Thursday{%endif%}
-                                    {% if event.week_day == '4' %}Friday{%endif%}
-                                    {% if event.week_day == '5' %}Saturday{%endif%}
-                                    {% if event.week_day == '6' %}Sunday{%endif%}
+                                    {% if event.week_day == 0 %}Monday
+                                    {% elif event.week_day == 1 %}Tuesday
+                                    {% elif event.week_day == 2 %}Wednesday
+                                    {% elif event.week_day == 3 %}Thursday
+                                    {% elif event.week_day == 4 %}Friday
+                                    {% elif event.week_day == 5 %}Saturday
+                                    {% elif event.week_day == 6 %}Sunday{%endif%}
 
 
                                     {{event.start_time}}-{{event.end_time}}</div>

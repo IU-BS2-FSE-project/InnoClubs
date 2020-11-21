@@ -12,7 +12,7 @@
             {% if rights %}
                 <li><a href="{% url 'events_list' club.club_url %}">Check attendance</a></li>
             {% endif %}
-            <li><a href="#">Club's Chat</a></li>
+            <li><a href="https://t.me/{{chat}}">Club's Chat</a></li>
             {% if rights == "Admin"%}
             <li><a href="{% url 'administration' club.club_url %}">Club's Administration</a></li>
             {% endif %}

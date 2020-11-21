@@ -46,6 +46,7 @@ def ClubPage(request, club_url):
                 args['rights'] = record.rights
         args['user'] = user
         args['club'] = club
+        args['chat'] = club.club_chat[1:]
 
         return render(request, "clubs/pageOfClub.html", args)
     else:

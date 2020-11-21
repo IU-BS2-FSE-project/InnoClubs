@@ -109,8 +109,8 @@ class ClubType(models.Model):
 
 class Attendance(models.Model):     # it should not be here, but I cant connect it in other app
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    date = models.DateTimeField("date", auto_now_add=True)
+    date = models.DateTimeField("date", auto_now_add=True, editable=False, null=False, blank=False)
     attended = models.ManyToManyField(Student, blank=True)
 
     def __str__(self):
-        return str(self.date) + str(self.event)
+        return str(self.date) + " " + str(self.event)
