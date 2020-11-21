@@ -1,39 +1,39 @@
 {% load static %}
 <div id="clubEventGrid">
-        {% if clubEventList %}
-                {% for clubEvent in clubEventList%}
-                    <a class="clubEvent" href="{{clubEvent.url}}">
-                        <img class="clubEventPicture" src="{{clubEvent.picture}}" width="64px" height="64px">
-                        <div class="clubEventCenter">
-                            <span class="clubEventName overflowText">{{clubEvent.name}}</span>
-                            <span class="clubEventDescr description overflowText">{{clubEvent.description}}</span>
-                        </div>
-                        <div class="clubEventTimeDate description">{{clubEvent.time_date}}</div>
-                        <div class="clubEventPlace description">{{clubEvent.place}}</div>
-                        <div class="clubEventParticipants description">{{clubEvent.participants}}</div>
-                    </a> 
-                {% endfor %}
-        {% endif %}
-        <!-- Example events -->
-            <a class="clubEvent" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-                <img class="clubEventPicture" src="https://i0.wp.com/www.axis-realty.com/wp-content/uploads/2016/09/cropped-favicon.png" width="64px" height="64px">
-                <div class="clubEventCenter">
-                    <span class="clubEventName overflowText">test_event 1</span>
-                    <span class="clubEventDescr description overflowText">test_event 1 long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long description</span>
-                </div>
-                <div class="clubEventTimeDate description">12:40 01.02.2021</div>
-                <div class="clubEventPlace description">University hall</div>
-                <div class="clubEventParticipants description">100 pers.</div>
-            </a> 
-            <a class="clubEvent" href="https://www.youtube.com/watch?v=5qap5aO4i9A">
-                <img class="clubEventPicture" src="https://i0.wp.com/www.axis-realty.com/wp-content/uploads/2016/09/cropped-favicon.png" width="64px" height="64px">
-                <div class="clubEventCenter">
-                    <span class="clubEventName overflowText">test_event 2</span>
-                    <span class="clubEventDescr description overflowText">test_event 2 short short short short short short short description</span>
-                </div>
-                <div class="clubEventTimeDate description">00:00 01.01.1970</div>
-                <div class="clubEventPlace description">Sports center 3rd floor cardio section дщтп дщтп дщтп дщтп дщтп дщтп </div>
-                <div class="clubEventParticipants description">1 pers.</div>
-            </a> 
-        <!-- /Example events -->
+    <h4>Regular events</h4>
+    {% for event in club.event_set.all%}
+        <a class="clubEvent" href="{{club.club_url}}">
+                    {% if event.img %}
+                    <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
+                    {% else %}
+                    <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
+                    {% endif %}
+                    <div class="clubEventCenter">
+                        <span class="clubEventName overflowText">{{event.title}}</span>
+                        <span class="clubEventDescr description overflowText">{{event.text}}</span>
+                    </div>
+                    <div class="clubEventTimeDate description">{{event.week_day}}
+                        {{event.start_time}}-{{event.end_time}}</div>
+                    <div class="clubEventPlace description">{{event.place}}</div>
+                    <div class="clubEventParticipants description">{{event.participants.count}}</div>
+        </a>
+    {% endfor %}
+    <h4>One-time events</h4>
+    {% for event in club.onetimeevent_set.all%}
+        <a class="clubEvent" href="{{club.club_url}}">
+                    {% if event.img %}
+                    <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
+                    {% else %}
+                    <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
+                    {% endif %}
+                    <div class="clubEventCenter">
+                        <span class="clubEventName overflowText">{{event.title}}</span>
+                        <span class="clubEventDescr description overflowText">{{event.text}}</span>
+                    </div>
+                    <div class="clubEventTimeDate description">{{event.start_time}}
+                        {{event.date}}</div>
+                    <div class="clubEventPlace description">{{event.place}}</div>
+                    <div class="clubEventParticipants description">{{event.participants.count}}</div>
+        </a>
+    {% endfor %}
 </div>

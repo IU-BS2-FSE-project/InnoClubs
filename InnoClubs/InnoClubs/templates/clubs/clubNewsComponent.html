@@ -1,21 +1,10 @@
 {% load static %}
 <div id="clubNewsGrid">
-    {% if clubEventList %}
-        {% for clubNews in clubNewsList%}
-            <a class="clubNews" href="{{clubNews.url}}">
-                <div class="clubNewsTitle">{{clubNews.title}}</div>
-                <div class="clubNewsTimeDate description">{{clubNews.time_date}}</div>
-            </a> 
-        {% endfor %}
-    {% endif %}
-    <!-- Example news -->
-        <a class="clubNews" href="#">
-            <div class="clubNewsTitle">New season has started!</div>
-            <div class="clubNewsTimeDate description">18:30 02.10.2020</div>
+    {% for article in club.news_set.all %}
+        <a class="clubNews">
+            <div class="clubNewsTitle">{{article.title}}</div>
+            <div class="clubNewsTimeDate description">{{article.publication_date}}</div>
+            <div class="description">{{article.info}}</div>
         </a> 
-        <a class="clubNews" href="#">
-            <div class="clubNewsTitle">The games were cancelled due to COVID-19</div>
-            <div class="clubNewsTimeDate description">13:14 20.03.2020</div>
-        </a> 
-    <!-- /Example news -->
+    {% endfor %}
 </div>

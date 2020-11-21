@@ -7,6 +7,7 @@
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubNewsComponent.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -20,8 +21,18 @@
                 {% endif %}
         </div>
     {% endblock %}
-    <h1>Upcoming activities</h1>
-    {% block clubEvents %}
-        {% include "./clubEventsComponent.html" %}
-    {% endblock %}
+    <h1>Feed</h1>
+    {% for club in user.student.subscriptions.all %}
+        <h2>{{ club.club_title }}</h2>
+        {% block clubEvents %}
+            <h3>Upcoming activities</h3>
+            {% include "./clubEventsComponent.html" %}
+        {% endblock %}
+        {% block clubNews %}
+            <h3>News</h3>
+            <div id="clubNews">
+                {% include "./clubNewsComponent.html" %}
+            </div>
+        {% endblock %}
+    {% endfor %}
 {% endblock %}

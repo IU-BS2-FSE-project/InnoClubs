@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ club.club_title }}{% endblock %}
 
 {% block title %}
     {{ club.club_title }}
@@ -34,9 +33,11 @@
     </div>
 
     <div id="contacts">
-        <span class="contact">Url: {{ infoFromDb.club_url }}</span>
-        <span class="contact">Chat: {{ club.club_chat }}</span>
-        <span class="contact">Leader: {{ leader_from_somewhere }}</span>
+        {% if club.club_chat %}
+            <span class="contact">
+                Chat: <a href="https://t.me/{{chat}}">{{club.club_chat}}</a>
+            </span>
+        {% endif %}
     </div>
 
     <div id="clubDescription">
