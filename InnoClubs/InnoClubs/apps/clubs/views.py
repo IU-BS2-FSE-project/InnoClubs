@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm, AddOneTimeEventForm
-from .models import Club, Student, ClubAdmin, News, ClubType, Event, OneTimeEvent
+from .models import *
 from django.http import HttpResponseRedirect
 
 
@@ -131,9 +131,8 @@ def add_event(request, club_url):
     args = {}
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)
+        args['form'] = form
         if form.is_valid():
-            args['form'] = form
-
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
