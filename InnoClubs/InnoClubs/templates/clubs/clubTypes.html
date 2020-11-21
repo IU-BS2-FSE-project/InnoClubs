@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}{{type.type_name}}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+{% block content %}
+    <h1>Club types</h1>
+    {% block clubTypes %}
+        <div id="clubTypeGrid">
+            {% if clubs %}
+                {% for club in clubs %}
+                <a href="{% url 'clubPage' club.club_url %}">{{ club.club_title }}</a><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endblock %}
+{% endblock %}

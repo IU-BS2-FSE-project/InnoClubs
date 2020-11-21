@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Club's administration{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/administration.css' %}">{% endblock %}
+
+{% block content %}
+    <h1>{{ club.club_title }} administration</h1>
+    <hr>
+
+   <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+         {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+         </div>
+        {% endfor %}
+        <button type="submit">Confirm</button>
+    </form>
+
+    <a href="{% url 'add_event' club.club_url %}">Add event</a>
+    <a href="{% url 'add_one_time_event' club.club_url %}">Add One time event</a>
+    <ul>
+        {% for event in club.event_set.all%}
+        <li>{{event.title}}. Every {{event.week_day}}, {{event.start_time}} - {{event.end_time}} ({{event.place}})
+        <a href="{% url 'del_event' club.club_url event.id%}">Delete</a>
+        </li>
+        {% endfor %}
+        {% for event in club.onetimeevent_set.all%}
+        <li>{{event.title}} {{event.date}}, {{event.start_time}}
+            {% if event.end_time %}}
+            - {{event.end_time}}
+            {% endif %}
+            ({{event.place}})
+        <a href="{% url 'del_otevent' club.club_url event.id%}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <a href="{% url 'addNews' club.club_url %}">Add News</a>
+    <ul>
+        {% for article in club.news_set.all%}
+        <li>{{article.title}}
+        <a href="{% url 'deleteNews' club.club_url article.id%}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h2>Club members</h2>
+    <-- put input.txt search here -->
+    <ol>
+        {% for admin in club.clubadmin_set.all %}
+        <li>{{ admin.student.user.first_name }} {{admin.student.user.last_name}} ({{admin.student.user.email}})
+            {{admin.rights}}
+            {% if admin.rights == "Admin" %}   <!--Вы не поверите сколько времени я думал как бы это правильно вывести-->
+                <a class="blocked" href="#" >Set as administrator</a><!--it should stay without any link-->
+                <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
+            {% elif admin.rights == "Assistant" %}
+                <a href="{% url 'set_admin' club.club_url admin.id%}">Set as administrator</a>
+                <a href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
+            {% endif %}
+        {% endfor %}
+
+        {% for person in students %}
+        {% if person not in admins_list %}
+            <li>{{ person.user.first_name }} {{person.user.last_name}}({{person.user.email}}) Club Member
+            <a href="{% url 'set_assistant' club.club_url person.id%}">Set as assistant</a>
+            <a href="{% url 'kick' club.club_url person.id%}">Kick</a>
+        {% endif %}
+        {% endfor %}
+    </ol>
+
+{% endblock %}
