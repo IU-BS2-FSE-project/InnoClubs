@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Club, Student, ClubAdmin, News, ClubType, Event, OneTimeEvent
+from .models import *
 
 # Register your models here.
 admin.site.register(Club)
@@ -8,6 +8,7 @@ admin.site.register(ClubAdmin)
 admin.site.register(News)
 admin.site.register(Event)
 admin.site.register(OneTimeEvent)
+admin.site.register(Attendance)
 
 
 @admin.register(ClubType)

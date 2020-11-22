@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
+
 from django.urls import reverse
 from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm, AddOneTimeEventForm
-from .models import Club, Student, ClubAdmin, News, ClubType, Event, OneTimeEvent
+from .models import *
 from django.http import HttpResponseRedirect
+
 
 
 # if user is not logged in => redirect to the auth/
@@ -132,6 +134,7 @@ def add_event(request, club_url):
     args = {}
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)
+        args['form'] = form
         if form.is_valid():
             args['form'] = form
 
@@ -166,14 +169,15 @@ def add_one_time_event(request, club_url):
         return render(request, 'clubs/addOneTimeEvent.html', args)
 
 
-def clubTypes(request):
+def clubTypes(request, type_url):
     args = {}
     args['username'] = auth.get_user(request).username
     try:
-        args['clubs'] = Club.objects.all()
+        neededType = ClubType.objects.get(type_url=type_url)
+        args['currentType'] = neededType
+        args['clubs'] = Club.objects.all().filter(club_type=neededType)
     except ObjectDoesNotExist:
         args['clubs'] = None
-
     return render(request, "clubs/clubTypes.html", args)
 
 

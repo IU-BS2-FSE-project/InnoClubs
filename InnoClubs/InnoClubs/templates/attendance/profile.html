@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load qr_code %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">{% endblock %}
+
+{% block content %}
+    <h1>Profile</h1>
+    {% qr_from_text user.username size="L" image_format="svg" error_correction="L"%}
+{% endblock %}

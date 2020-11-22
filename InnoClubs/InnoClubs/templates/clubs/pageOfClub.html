@@ -24,7 +24,7 @@
         {% endif %}
 
         {% if rights %}
-            <a href="#" class="action">ATTENDANCE</a>
+            <a href="{% url 'events_list' club.club_url %}" class="action">ATTENDANCE</a>
         {% endif %}
 
         {% if rights == "Admin" %}

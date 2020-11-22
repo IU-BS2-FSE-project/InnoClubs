@@ -28,7 +28,7 @@ SECRET_KEY = os.environ['FSE_DJANGO_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.104",
+ALLOWED_HOSTS = ["192.168.1.101",
                  "127.0.0.1"]
 
 
@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ["192.168.1.104",
 
 INSTALLED_APPS = [
     'clubs.apps.ClubsConfig',
+    'attendance.apps.AttendanceConfig',
     'authorization.apps.AuthorizationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
@@ -145,5 +147,5 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 # some gmail account with
 # https://myaccount.google.com/lesssecureapps is turned on
-EMAIL_HOST_USER = '*********'
-EMAIL_HOST_PASSWORD = '*******'  # password for this account
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
