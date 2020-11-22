@@ -1,29 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block title %}InnoClubs{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">{% endblock %}
 
 {% block content %}
-    <h1>Club types</h1>
-    {% block clubTypes %}
-        <div id="clubTypeGrid">
-                {% if clubTypeList %}
-                        {% for clubType in clubTypeList%}
-                            <a href="{% url 'clubTypes' clubType.type_url %}" class="clubType" alt="img" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
-                        {% endfor %}
-                {% endif %}
-        </div>
-    {% endblock %}
-    <h1>Upcoming activities</h1>
-    {% block clubEvents %}
-        <div id="clubEventGrid">
-            {% for club in user.student.subscriptions.all %}
-                {% for event in club.event_set.all%}
-                    <a class="clubEvent" href="{{club.club_url}}">
+    <h1>Next events are acceptable to check attendance</h1>
+    <h3>You cannot check attendance more than 30 min before event</h3>
+    {{date}}
+
+    <div id="clubEventGrid">
+        {% for event in events%}
+                    <a class="clubEvent" href="{% url 'check_attendance' club.club_url event.id%}">
                                 {% if event.img %}
                                 <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
                                 {% else %}
@@ -33,23 +23,14 @@
                                     <span class="clubEventName overflowText">{{event.title}}</span>
                                     <span class="clubEventDescr description overflowText">{{event.text}}</span>
                                 </div>
-                                <div class="clubEventTimeDate description">
-                                    {% if event.week_day == 0 %}Monday
-                                    {% elif event.week_day == 1 %}Tuesday
-                                    {% elif event.week_day == 2 %}Wednesday
-                                    {% elif event.week_day == 3 %}Thursday
-                                    {% elif event.week_day == 4 %}Friday
-                                    {% elif event.week_day == 5 %}Saturday
-                                    {% elif event.week_day == 6 %}Sunday{%endif%}
-
-
+                                <div class="clubEventTimeDate description">{{event.week_day}}
                                     {{event.start_time}}-{{event.end_time}}</div>
                                 <div class="clubEventPlace description">{{event.place}}</div>
                                 <div class="clubEventParticipants description">{{event.participants.count}}</div>
                     </a>
                 {% endfor %}
 
-                {% for event in club.onetimeevent_set.all%}
+                {% for event in ot_events%}
                     <a class="clubEvent" href="{{club.club_url}}">
                                 {% if event.img %}
                                 <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
@@ -66,15 +47,5 @@
                                 <div class="clubEventParticipants description">{{event.participants.count}}</div>
                     </a>
                 {% endfor %}
-                <ul>
-                    {% for article in club.news_set.all%}
-                        <li>{{article.title}} {{article.publication_date}}
-                            {{article.info}}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-
-        </div>
-    {% endblock %}
+    </div>
 {% endblock %}

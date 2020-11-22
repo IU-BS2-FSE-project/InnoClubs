@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}{{ club.club_title }}{% endblock %}
 
-
     {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/clubPage.css' %}">
     {% endblock %}
@@ -10,10 +9,8 @@
         <img src="{{ club.club_logo.url }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
         <ul class="menu">
             <li><a href="#">Join Club</a></li>
-            {% if rights %}
-                <li><a href="#">Check attendance</a></li>
-            {% endif %}
-            <li><a href="#">Club's Chat</a></li>
+            <li><a href="{% url 'events_list' club.club_url %}">Check attendance</a></li>
+            <li><a href="https://t.me/{{chat}}">Club's Chat</a></li>
             {% if rights == "Admin"%}
             <li><a href="{% url 'administration' club.club_url %}">Club's Administration</a></li>
             {% endif %}
