@@ -7,10 +7,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">{% endblock %}
 
 {% block content %}
-    <h1>Next events are acceptable to check attendance</h1>
+    <h1>You can check attendance</h1>
+    <p>Now: {{time}}</p>
+    <br>
     <h3>You cannot check attendance more than 30 min before event</h3>
+    <br>
+    <p>Event info:<br>
     {{attendance.date}}<br>
-    {{attendance.event}}<br>
-    {{attendance.id}}<br>
-    {{check}}<br>
-{% endblock %}w
+        {{attendance.event}}<br></p>
+
+<h3>Enter code of participant here:</h3>
+<form method="POST">{% csrf_token %}
+<input type="text" name="code">
+    <input type="submit" value="Сохранить" >
+</form>
+{%if check%}<p>{{check}} added successfully</p>{%endif%}
+<br>
+<h3>Checked:</h3>
+{%for person in attendance.attended.all%}
+{{person}}
+{%endfor%}
+{% endblock %}

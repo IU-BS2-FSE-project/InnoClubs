@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib import auth
@@ -11,6 +13,8 @@ Event = apps.get_model('clubs', 'Event')
 OneTimeEvent = apps.get_model('clubs', 'OneTimeEvent')
 Student = apps.get_model('clubs', 'Student')
 Attendance = apps.get_model('clubs', 'Attendance')
+ClubAdmin = apps.get_model('clubs', 'ClubAdmin')
+codes = {}
 
 
 def profile(request):
@@ -63,6 +67,11 @@ def check_attendance(request, club_url, event_id):
     args ={}
     club = Club.objects.get(club_url=club_url)
     user = auth.get_user(request)
+    try:
+        isAdmin = ClubAdmin.objects.get(club=club, student=user.student)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('view_code', args=(club_url, event_id)))
+
     event = Event.objects.get(id=event_id)
     try:
         attendance = Attendance.objects.get(event=event_id, date__date=datetime.date.today())
@@ -73,6 +82,28 @@ def check_attendance(request, club_url, event_id):
     args['user'] = user
     args['club'] = club
     args['attendance'] = attendance
+    args['time'] = datetime.date.today()
+    try:
+        if request.method == "POST":
+            code = request.POST.get("code")
+            attended_user = codes.get(int(code))
+            attendance.attended.add(attended_user.student)
+            args['check'] = attended_user
+        return render(request, "attendance/check_attendance.html", args)
+    except AttributeError:
+        return render(request, "attendance/check_attendance.html", args)
+
+
+def view_code(request, club_url, event_id):
+    args ={}
+    club = Club.objects.get(club_url=club_url)
+    user = auth.get_user(request)
+    event = Event.objects.get(id=event_id)
+    code = random.randint(100000, 999999)
+    args['code'] = code
+    codes[code] = user
+    args['user'] = user
+    args['club'] = club
     args['check'] = datetime.date.today()
 
-    return render(request, "attendance/check_attendance.html", args)
+    return render(request, "attendance/code.html", args)

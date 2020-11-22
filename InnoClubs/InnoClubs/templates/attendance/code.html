@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">{% endblock %}
+
+{% block content %}
+    <h1>Next events are acceptable to check attendance</h1>
+    <h3>You cannot check attendance more than 30 min before event</h3>
+<h1>{{code}}</h1>
+{% endblock %}
