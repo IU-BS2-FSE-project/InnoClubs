@@ -42,4 +42,5 @@ a.clubEvent {
 }
 #clubEvents {
     display: grid;
+    grid-gap: 1vw;
 }
