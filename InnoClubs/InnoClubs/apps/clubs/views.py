@@ -171,10 +171,10 @@ def clubTypes(request,type_url):
     args = {}
     args['username'] = auth.get_user(request).username
     try:
-        args['clubs'] = Club.objects.all()
+        neededType = ClubType.objects.get(type_url=type_url)
+        args['clubs'] = Club.objects.all().filter(club_type=neededType)
     except ObjectDoesNotExist:
         args['clubs'] = None
-
     return render(request, "clubs/clubTypes.html", args)
 
 
