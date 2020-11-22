@@ -74,9 +74,11 @@ def check_attendance(request, club_url, event_id):
 
     event = Event.objects.get(id=event_id)
     try:
-        attendance = Attendance.objects.get(event=event_id, date__date=datetime.date.today())
+        attendance = Attendance.objects.get(
+            event=event_id, date__date=datetime.date.today())
     except ObjectDoesNotExist:
-        attendance = Attendance.objects.create(event=event, date=datetime.datetime.now())
+        attendance = Attendance.objects.create(
+            event=event, date=datetime.datetime.now())
         attendance.save()
 
     args['user'] = user
