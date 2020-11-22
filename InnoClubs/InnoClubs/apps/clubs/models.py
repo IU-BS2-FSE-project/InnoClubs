@@ -24,7 +24,8 @@ class Club(models.Model):
     club_url = models.CharField(
         "Url of the club(For example testUrl)", max_length=200, editable=False)
     club_chat = models.CharField("Telegram chat", max_length=200, null=True)
-    club_type = models.ForeignKey(ClubType, on_delete=models.CASCADE, null=True)
+    club_type = models.ForeignKey(ClubType, on_delete=models.CASCADE,
+                                  null=True)
     def __str__(self):
         return self.club_title
 
