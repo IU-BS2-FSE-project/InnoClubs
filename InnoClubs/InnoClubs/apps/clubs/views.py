@@ -167,7 +167,7 @@ def add_one_time_event(request, club_url):
         return render(request, 'clubs/addOneTimeEvent.html', args)
 
 
-def clubTypes(request):
+def clubTypes(request,type_url):
     args = {}
     args['username'] = auth.get_user(request).username
     try:
