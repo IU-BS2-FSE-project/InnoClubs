@@ -172,6 +172,7 @@ def clubTypes(request,type_url):
     args['username'] = auth.get_user(request).username
     try:
         neededType = ClubType.objects.get(type_url=type_url)
+        args['currentType'] = neededType
         args['clubs'] = Club.objects.all().filter(club_type=neededType)
     except ObjectDoesNotExist:
         args['clubs'] = None
