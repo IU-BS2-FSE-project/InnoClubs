@@ -1,39 +1,49 @@
 {% load static %}
-<div id="clubEventGrid">
+<div id="clubEvents">
     <h3>Regular events</h3>
-    {% for event in club.event_set.all%}
-        <a class="clubEvent" href="{{club.club_url}}">
-                    {% if event.img %}
-                    <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                    {% else %}
-                    <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                    {% endif %}
-                    <div class="clubEventCenter">
-                        <span class="clubEventName overflowText">{{event.title}}</span>
-                        <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                    </div>
-                    <div class="clubEventTimeDate description">{{event.week_day}}
-                        {{event.start_time}}-{{event.end_time}}</div>
-                    <div class="clubEventPlace description">{{event.place}}</div>
-                    <div class="clubEventParticipants description">{{event.participants.count}}</div>
-        </a>
+    {% for event in all_events %}
+        <div class="eventFlex">
+            <a class="clubEvent" href="{{club.club_url}}">
+                        {% if event.img %}
+                        <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
+                        {% else %}
+                        <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
+                        {% endif %}
+                        <div class="clubEventCenter">
+                            <span class="clubEventName">{{event.title}}</span>
+                            <span class="clubEventDescr description overflowText">{{event.text}}</span>
+                        </div>
+                        <div class="clubEventTimeDate description overflowText">{{event.week_day}}
+                            {{event.start_time}}-{{event.end_time}}</div>
+                        <div class="clubEventPlace description overflowText">{{event.place}}</div>
+                        <div class="clubEventParticipants description overflowText">{{event.participants.count}}</div>
+            </a>
+            {% if showDelete is True %}
+                <a class="{{ deleteClass }}" href="{% url 'del_event' club.club_url event.id%}">Delete</a>
+            {% endif %}
+        </div>
     {% endfor %}
     <h3>One-time events</h3>
-    {% for event in club.onetimeevent_set.all%}
-        <a class="clubEvent" href="{{club.club_url}}">
-                    {% if event.img %}
-                    <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                    {% else %}
-                    <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                    {% endif %}
-                    <div class="clubEventCenter">
-                        <span class="clubEventName overflowText">{{event.title}}</span>
-                        <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                    </div>
-                    <div class="clubEventTimeDate description">{{event.start_time}}
-                        {{event.date}}</div>
-                    <div class="clubEventPlace description">{{event.place}}</div>
-                    <div class="clubEventParticipants description">{{event.participants.count}}</div>
-        </a>
+    {% for event in one_time_events %}
+        <div class="eventFlex">
+            <a class="clubEvent" href="{{club.club_url}}">
+                        {% if event.img %}
+                        <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
+                        {% else %}
+                        <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
+                        {% endif %}
+                        <div class="clubEventCenter">
+                            <span class="clubEventName">{{event.title}}</span>
+                            <span class="clubEventDescr description overflowText">{{event.text}}</span>
+                        </div>
+                        <div class="clubEventTimeDate description overflowText">{{event.start_time}}
+                            {{event.date}}</div>
+                        <div class="clubEventPlace description overflowText">{{event.place}}</div>
+                        <div class="clubEventParticipants description overflowText">{{event.participants.count}}</div>
+            </a>
+            {% if showDelete is True %}
+                <a class="{{ deleteClass }}" href="{% url 'del_event' club.club_url event.id%}">Delete</a>
+            {% endif %}
+        </div>
     {% endfor %}
 </div>

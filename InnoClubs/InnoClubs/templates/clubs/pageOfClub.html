@@ -47,13 +47,13 @@
     {% block clubEvents %}
         <div id="clubEvents">
             <h2>Upcoming activities</h2>
-            {% include "./clubEventsComponent.html" %}
+            {% include "./clubEventsComponent.html" with all_events=club.event_set.all one_time_events=club.onetimeevent_set.all%}
         </div>
     {% endblock %}
     {% block clubNews %}
         <div id="clubNews">
             <h2>News</h2>
-            {% include "./clubNewsComponent.html" %}
+            {% include "./clubNewsComponent.html" with news=club.news_set.all %}
         </div>
     {% endblock %}
 {% endblock %}

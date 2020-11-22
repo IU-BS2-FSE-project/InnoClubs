@@ -27,13 +27,13 @@
         <h2>{{ club.club_title }}</h2>
         <div class="feedClub">
             {% block clubEvents %}
-                {% include "./clubEventsComponent.html" %}
+                {% include "./clubEventsComponent.html"  with all_events=club.event_set.all one_time_events=club.onetimeevent_set.all%}
             {% endblock %}
 
             {% block clubNews %}
                 <h3>News</h3>
                 <div class="clubNews">
-                    {% include "./clubNewsComponent.html" %}
+                    {% include "./clubNewsComponent.html" with news=club.news_set.all %}
                 </div>
             {% endblock %}
         </div>

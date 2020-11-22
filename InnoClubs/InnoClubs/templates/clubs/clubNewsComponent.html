@@ -1,10 +1,15 @@
 {% load static %}
 <div id="clubNewsGrid">
-    {% for article in club.news_set.all %}
-        <a class="clubNews">
-            <div class="clubNewsTitle">{{article.title}}</div>
-            <div class="clubNewsTimeDate description">{{article.publication_date}}</div>
-            <div class="description">{{article.info}}</div>
-        </a> 
+    {% for article in news %}
+        <div class="newsFlex">
+            <a class="clubNews">
+                <div class="clubNewsTitle">{{article.title}}</div>
+                <div class="clubNewsTimeDate description">{{article.publication_date}}</div>
+                <div class="description">{{article.info}}</div>
+            </a>
+            {% if showDelete is True %}
+                <a class="{{ deleteClass }}" href="{% url 'deleteNews' club.club_url article.id%}">Delete</a>
+            {% endif %}
+        </div>
     {% endfor %}
 </div>

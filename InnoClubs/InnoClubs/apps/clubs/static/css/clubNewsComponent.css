@@ -1,6 +1,6 @@
-#clubNewsGrid {
+.newsFlex {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
 .clubNews {
@@ -28,4 +28,9 @@
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+}
+
+#clubNewsGrid {
+    display: flex;
+    flex-direction: column;
 }
