@@ -5,7 +5,10 @@
 {% block title %}InnoClubs{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubNewsComponent.css' %}">
+{% endblock %}
 
 {% block content %}
     <h1>Club types</h1>
@@ -18,63 +21,22 @@
                 {% endif %}
         </div>
     {% endblock %}
-    <h1>Upcoming activities</h1>
-    {% block clubEvents %}
-        <div id="clubEventGrid">
-            {% for club in user.student.subscriptions.all %}
-                {% for event in club.event_set.all%}
-                    <a class="clubEvent" href="{{club.club_url}}">
-                                {% if event.img %}
-                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                                {% else %}
-                                <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                                {% endif %}
-                                <div class="clubEventCenter">
-                                    <span class="clubEventName overflowText">{{event.title}}</span>
-                                    <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                                </div>
-                                <div class="clubEventTimeDate description">
-                                    {% if event.week_day == 0 %}Monday
-                                    {% elif event.week_day == 1 %}Tuesday
-                                    {% elif event.week_day == 2 %}Wednesday
-                                    {% elif event.week_day == 3 %}Thursday
-                                    {% elif event.week_day == 4 %}Friday
-                                    {% elif event.week_day == 5 %}Saturday
-                                    {% elif event.week_day == 6 %}Sunday{%endif%}
+    <h1>Feed</h1>
+    <div id="feedAll">
+    {% for club in user.student.subscriptions.all %}
+        <h2>{{ club.club_title }}</h2>
+        <div class="feedClub">
+            {% block clubEvents %}
+                {% include "./clubEventsComponent.html"  with all_events=club.event_set.all one_time_events=club.onetimeevent_set.all%}
+            {% endblock %}
 
-
-                                    {{event.start_time}}-{{event.end_time}}</div>
-                                <div class="clubEventPlace description">{{event.place}}</div>
-                                <div class="clubEventParticipants description">{{event.participants.count}}</div>
-                    </a>
-                {% endfor %}
-
-                {% for event in club.onetimeevent_set.all%}
-                    <a class="clubEvent" href="{{club.club_url}}">
-                                {% if event.img %}
-                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                                {% else %}
-                                <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                                {% endif %}
-                                <div class="clubEventCenter">
-                                    <span class="clubEventName overflowText">{{event.title}}</span>
-                                    <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                                </div>
-                                <div class="clubEventTimeDate description">{{event.start_time}}
-                                    {{event.date}}</div>
-                                <div class="clubEventPlace description">{{event.place}}</div>
-                                <div class="clubEventParticipants description">{{event.participants.count}}</div>
-                    </a>
-                {% endfor %}
-                <ul>
-                    {% for article in club.news_set.all%}
-                        <li>{{article.title}} {{article.publication_date}}
-                            {{article.info}}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-
+            {% block clubNews %}
+                <h3>News</h3>
+                <div class="clubNews">
+                    {% include "./clubNewsComponent.html" with news=club.news_set.all %}
+                </div>
+            {% endblock %}
         </div>
-    {% endblock %}
+    {% endfor %}
+    </div>
 {% endblock %}

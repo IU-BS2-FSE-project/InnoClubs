@@ -1,52 +1,59 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ club.club_title }}{% endblock %}
 
-    {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/clubPage.css' %}">
-    {% endblock %}
-    {% block content %}
-        <img src="{{ club.club_logo.url }}" alt="Avatar" class="avatar" width="60%" height="170"><br><br>
-        <ul class="menu">
-            <li><a href="#">Join Club</a></li>
-            <li><a href="{% url 'events_list' club.club_url %}">Check attendance</a></li>
-            <li><a href="https://t.me/{{chat}}">Club's Chat</a></li>
-            {% if rights == "Admin"%}
-            <li><a href="{% url 'administration' club.club_url %}">Club's Administration</a></li>
-            {% endif %}
-            {% if club in user.student.subscriptions.all %}
-                <li><a href="{% url 'unsubscribe' club.club_url %}">Unsubscribe</a></li>
-            {% else %}
-                <li><a href="{% url 'subscribe' club.club_url %}">Subscribe</a></li>
-            {% endif %}
-        </ul>
+{% block title %}
+    {{ club.club_title }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pageOfClub.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubNewsComponent.css' %}">
+{% endblock %}
+
+{% block content %}
+    <img src="{{ club.club_logo.url }}" alt="Avatar" class="avatar" >
+
+    <div id="clubGrid">
         <h1>{{ club.club_title }}</h1>
-        {{ club.club_info }} <br>
-        Our chat in telegram: {{ club.club_chat }}
-<br>
-<hr>
-<ul>
-        {% for event in club.event_set.all%}
-        <li>{{event.title}}. Every {{event.week_day}}, {{event.start_time}} - {{event.end_time}} ({{event.place}})
-            <br>{{event.text}}
-        </li>
-        {% endfor %}
-        {% for event in club.onetimeevent_set.all%}
-        <li>{{event.title}} {{event.date}}, {{event.start_time}}
-            {% if event.end_time %}}
-            - {{event.end_time}}
-            {% endif %}
-            ({{event.place}})<br>{{event.text}}
-        </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <ul>
-        {% for article in club.news_set.all%}
-        <li>{{article.title}} {{article.publication_date}}<br>
-            {{article.info}}
-        </li>
-        {% endfor %}
-    </ul>
-    <hr>
+
+        {% if club in user.student.subscriptions.all %}
+            <a href="{% url 'unsubscribe' club.club_url %}" class="action">UNSUBSCRIBE</a>
+        {% else %}
+            <a href="{% url 'subscribe' club.club_url %}" class="action">SUBSCRIBE</a>
+        {% endif %}
+
+        {% if rights %}
+            <a href="{% url 'events_list' club.club_url %}" class="action">ATTENDANCE</a>
+        {% endif %}
+
+        {% if rights == "Admin" %}
+            <a href="{% url 'administration' club.club_url %}" class="action">CONTROL PANEL</a>   
+        {% endif %}
+    </div>
+
+    <div id="contacts">
+        {% if club.club_chat %}
+            <span class="contact">
+                Chat: <a href="https://t.me/{{chat}}">{{club.club_chat}}</a>
+            </span>
+        {% endif %}
+    </div>
+
+    <div id="clubDescription">
+        {{ club.club_info }}
+    </div>
+
+    {% block clubEvents %}
+        <div id="clubEvents">
+            <h2>Upcoming activities</h2>
+            {% include "./clubEventsComponent.html" with all_events=club.event_set.all one_time_events=club.onetimeevent_set.all%}
+        </div>
     {% endblock %}
+    {% block clubNews %}
+        <div id="clubNews">
+            <h2>News</h2>
+            {% include "./clubNewsComponent.html" with news=club.news_set.all %}
+        </div>
+    {% endblock %}
+{% endblock %}

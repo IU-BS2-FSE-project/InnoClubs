@@ -1,0 +1,46 @@
+.eventFlex {
+    display: flex;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+a.clubEvent {
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr 1fr 1fr;
+    color: black;
+}
+
+.clubEventCenter {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.clubEventName {
+    font-size: 20px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    max-height: calc(1.4em);
+}
+
+.overflowText {
+    overflow: hidden;
+    white-space: normal;
+    max-height: calc(1.4em * 3);
+}
+
+.clubEventPlace {
+    margin: 0px 5px;
+}
+
+.clubEventParticipants {
+    margin: 0px 5px;
+}
+
+.description {
+    color: #6a737d;
+    font-size: 14px;
+}
+#clubEvents {
+    display: grid;
+    grid-gap: 1vw;
+}

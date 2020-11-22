@@ -1,0 +1,52 @@
+h1 {
+    margin: 0px;
+    margin-right: 20px;
+    align-self: center;
+    font-size: 30px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-right: 20px;
+    align-self: center;
+    font-size: 24px;
+}
+
+#clubGrid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.action {
+    padding: 10px;
+    margin: 2px 10px 2px 0px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6a737d;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+}
+
+#contacts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.contact {
+    margin-right: 20px;
+}
+
+.avatar {
+    width:60%;
+    max-height:170px;
+    object-fit: contain;
+    object-position: left;
+}
