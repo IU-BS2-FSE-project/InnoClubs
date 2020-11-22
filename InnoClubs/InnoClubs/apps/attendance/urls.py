@@ -8,4 +8,3 @@ urlpatterns = [
     path('<str:club_url>/eventsList/<int:event_id>/check_attendance', views.check_attendance, name='check_attendance'),
     path('<str:club_url>/eventsList/<int:event_id>/view_code', views.view_code, name='view_code'),
 ]
-

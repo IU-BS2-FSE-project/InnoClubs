@@ -25,7 +25,7 @@ def profile(request):
 
 
 def events_list(request, club_url):
-    args ={}
+    args = {}
     club = Club.objects.get(club_url=club_url)
     events = Event.objects.filter(club=club)
     ot_events = OneTimeEvent.objects.filter(club=club)
@@ -64,7 +64,7 @@ def is_ready(event, is_one_time):
 
 
 def check_attendance(request, club_url, event_id):
-    args ={}
+    args = {}
     club = Club.objects.get(club_url=club_url)
     user = auth.get_user(request)
     try:
@@ -93,8 +93,9 @@ def check_attendance(request, club_url, event_id):
     except AttributeError:
         return render(request, "attendance/check_attendance.html", args)
 
+
 def check_attendance(request, club_url, event_id):
-    args ={}
+    args = {}
     club = Club.objects.get(club_url=club_url)
     user = auth.get_user(request)
     try:
@@ -125,7 +126,7 @@ def check_attendance(request, club_url, event_id):
 
 
 def view_code(request, club_url, event_id):
-    args ={}
+    args = {}
     club = Club.objects.get(club_url=club_url)
     user = auth.get_user(request)
     code = random.randint(100000, 999999)
@@ -134,5 +135,4 @@ def view_code(request, club_url, event_id):
     args['user'] = user
     args['club'] = club
     args['check'] = datetime.date.today()
-
     return render(request, "attendance/code.html", args)

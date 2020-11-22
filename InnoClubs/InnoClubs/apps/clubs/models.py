@@ -26,6 +26,7 @@ class Club(models.Model):
     club_chat = models.CharField("Telegram chat", max_length=200, null=True)
     club_type = models.ForeignKey(ClubType, on_delete=models.CASCADE,
                                   null=True)
+
     def __str__(self):
         return self.club_title
 
@@ -107,8 +108,6 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         Student.objects.create(user=instance)
     instance.student.save()
-
-
 
 
 class Attendance(models.Model):     # it should not be here, but I cant connect it in other app
