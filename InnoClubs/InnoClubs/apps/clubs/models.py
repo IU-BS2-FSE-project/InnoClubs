@@ -7,10 +7,7 @@ from django.dispatch import receiver
 class Club(models.Model):
     club_title = models.CharField("Title of the club", max_length=200, editable=False)
     club_info = models.CharField("Information of the club", max_length=2000)
-    club_logo = models.ImageField(
-        upload_to="static/img/",
-        null=False,
-        default="static/img/no_image_found.png")
+    club_logo = models.ImageField(upload_to="static/img/", null=True)
     club_url = models.CharField(
         "Url of the club(For example testUrl)", max_length=200, editable=False)
     club_chat = models.CharField("Telegram chat", max_length=200, null=True)
