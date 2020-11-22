@@ -145,5 +145,5 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 # some gmail account with
 # https://myaccount.google.com/lesssecureapps is turned on
-EMAIL_HOST_USER = '*********'
-EMAIL_HOST_PASSWORD = '*******'  # password for this account
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
