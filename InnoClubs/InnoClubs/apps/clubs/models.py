@@ -8,13 +8,8 @@ class Club(models.Model):
     club_title = models.CharField("Title of the club", max_length=200, editable=False)
     club_info = models.CharField("Information of the club", max_length=2000)
     club_logo = models.ImageField(upload_to="static/img/", null=True)
-<<<<<<< HEAD
-    club_url = models.CharField("Url of the club"
-                                "(For example testUrl)", max_length=200)
-=======
     club_url = models.CharField(
         "Url of the club(For example testUrl)", max_length=200, editable=False)
->>>>>>> 54a185273414607c9810f657995e716fe6cce2da
     club_chat = models.CharField("Telegram chat", max_length=200, null=True)
 
     def __str__(self):
