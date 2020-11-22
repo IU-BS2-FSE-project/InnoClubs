@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %}InnoClubs{% endblock %}
+{% block title %}Club's administration{% endblock %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
@@ -13,7 +13,7 @@
         <div id="clubTypeGrid">
                 {% if clubTypeList %}
                         {% for clubType in clubTypeList%}
-                            <a href="/type" class="clubType" alt="img" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
+                            <a href="{% url 'clubTypes' clubType.type_url %}" class="clubType" alt="img" style="background-image: url({{ clubType.type_image }});">{{ clubType.type_name }}</a>
                         {% endfor %}
                 {% endif %}
         </div>

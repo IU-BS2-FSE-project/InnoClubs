@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% if currentType %}
+    {% block title %}{{currentType}}{% endblock %}
+{% endif %}
 
-
-{% block title %}{{type.type_name}}{% endblock %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
