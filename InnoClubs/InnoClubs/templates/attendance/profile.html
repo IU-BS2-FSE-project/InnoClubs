@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load qr_code %}
 
 {% block title %}Profile{% endblock %}
 
@@ -9,5 +8,4 @@
 
 {% block content %}
     <h1>Profile</h1>
-    {% qr_from_text user.username size="L" image_format="svg" error_correction="L"%}
 {% endblock %}

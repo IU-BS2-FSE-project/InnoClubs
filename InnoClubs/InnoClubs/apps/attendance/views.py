@@ -49,7 +49,7 @@ def events_list(request, club_url):
 
 def is_ready(event, is_one_time):
     if is_one_time:
-        if event.date != datetime.datetime.today():
+        if event.date != datetime.date.today():
             return False
     else:
         if event.week_day != datetime.datetime.today().weekday():
