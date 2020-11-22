@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
 from django.urls import reverse
 from .forms import AddNewsForm, AddEventForm, ClubInfoChangeForm, AddOneTimeEventForm
 from .models import Club, Student, ClubAdmin, News, ClubType, Event, OneTimeEvent
 from django.http import HttpResponseRedirect
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
 
 
 # if user is not logged in => redirect to the auth/
@@ -16,7 +22,7 @@ from django.http import HttpResponseRedirect
 def main(request):
     args = {}
     if auth.get_user(request).username:
-        args['username'] = auth.get_user(request).username
+        args['user'] = auth.get_user(request)
         try:
             args['infoFromDb'] = Club.objects.all()
         except ObjectDoesNotExist:
@@ -115,12 +121,20 @@ def addNews(request, club_url):
     if request.method == "POST":
         form = AddNewsForm(request.POST)
         if form.is_valid():
+<<<<<<< HEAD
+=======
+            args['form'] = form
+
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             new = form.save(commit=False)
             new.club = Club.objects.get(club_url=club_url)
             new.save()
             return HttpResponseRedirect(reverse('addNews', args=(club_url,)))
         else:
+<<<<<<< HEAD
             args['form'] = form
+=======
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             return render(request, 'clubs/addNews.html', args)
     else:
         form = AddNewsForm()
@@ -133,12 +147,20 @@ def add_event(request, club_url):
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
+<<<<<<< HEAD
+=======
+            args['form'] = form
+
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
             return HttpResponseRedirect(reverse('add_event', args=(club_url, )))
         else:
+<<<<<<< HEAD
             args['form'] = form
+=======
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             return render(request, 'clubs/addEvent.html', args)
     else:
         form = AddEventForm()
@@ -151,12 +173,20 @@ def add_one_time_event(request, club_url):
     if request.method == "POST":
         form = AddOneTimeEventForm(request.POST, request.FILES)
         if form.is_valid():
+<<<<<<< HEAD
+=======
+            args['form'] = form
+
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             event = form.save(commit=False)
             event.club = Club.objects.get(club_url=club_url)
             event.save()
             return HttpResponseRedirect(reverse('add_one_time_event', args=(club_url,)))
         else:
+<<<<<<< HEAD
             args['form'] = form
+=======
+>>>>>>> 54a185273414607c9810f657995e716fe6cce2da
             return render(request, 'clubs/addOneTimeEvent.html', args)
     else:
         form = AddOneTimeEventForm()
