@@ -59,3 +59,12 @@
 .section {
   margin-bottom: 30px;
 }
+
+form {
+  align-self: center;
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+}

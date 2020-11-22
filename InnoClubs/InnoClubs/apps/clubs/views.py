@@ -8,7 +8,6 @@ from .models import *
 from django.http import HttpResponseRedirect
 
 
-
 # if user is not logged in => redirect to the auth/
 # if user is logged in => show main page
 # args['infoFromDb'] = .... means that we add information of all the clubs
@@ -59,7 +58,8 @@ def subscribe(request, club_url):
     user = auth.get_user(request)
     club = Club.objects.get(club_url=club_url)
     user.student.subscriptions.add(club)
-    return HttpResponseRedirect(reverse('clubPage', args=(club_url,)))  # almost same as redirect
+    # almost same as redirect
+    return HttpResponseRedirect(reverse('clubPage', args=(club_url,)))
 
 
 def unsubscribe(request, club_url):

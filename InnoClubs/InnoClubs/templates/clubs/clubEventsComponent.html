@@ -3,7 +3,7 @@
     <h3>Regular events</h3>
     {% for event in all_events %}
         <div class="eventFlex">
-            <a class="clubEvent" href="{{club.club_url}}">
+            <a class="clubEvent" href="{% if showAttendance is True %} {% url 'check_attendance' club.club_url event.id %} {% else %} {{club.club_url}} {% endif %}">
                 {% if event.img %}
                     <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
                 {% else %}
@@ -35,7 +35,7 @@
     <h3>One-time events</h3>
     {% for event in one_time_events %}
         <div class="eventFlex">
-            <a class="clubEvent" href="{{club.club_url}}">
+            <a class="clubEvent" href="{% if showAttendance is True %} {{club.club_url}} {% else %} {{club.club_url}} {% endif %}">
                         {% if event.img %}
                         <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
                         {% else %}

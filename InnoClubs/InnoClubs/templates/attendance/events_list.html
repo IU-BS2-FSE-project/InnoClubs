@@ -4,48 +4,15 @@
 {% block title %}Profile{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clubEventsComponent.css' %}">
+{% endblock %}
 
 {% block content %}
     <h1>Next events are acceptable to check attendance</h1>
     <h3>You cannot check attendance more than 30 min before event</h3>
     {{date}}
 
-    <div id="clubEventGrid">
-        {% for event in events%}
-                    <a class="clubEvent" href="{% url 'check_attendance' club.club_url event.id%}">
-                                {% if event.img %}
-                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                                {% else %}
-                                <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                                {% endif %}
-                                <div class="clubEventCenter">
-                                    <span class="clubEventName overflowText">{{event.title}}</span>
-                                    <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                                </div>
-                                <div class="clubEventTimeDate description">{{event.week_day}}
-                                    {{event.start_time}}-{{event.end_time}}</div>
-                                <div class="clubEventPlace description">{{event.place}}</div>
-                                <div class="clubEventParticipants description">{{event.participants.count}}</div>
-                    </a>
-                {% endfor %}
-
-                {% for event in ot_events%}
-                    <a class="clubEvent" href="{{club.club_url}}">
-                                {% if event.img %}
-                                <img class="clubEventPicture" src="{{event.img.url}}" width="64px" height="64px" alt="img">
-                                {% else %}
-                                <img class="clubEventPicture" src="{% static 'img/default.jpg' %}" width="64px" height="64px" alt="img">
-                                {% endif %}
-                                <div class="clubEventCenter">
-                                    <span class="clubEventName overflowText">{{event.title}}</span>
-                                    <span class="clubEventDescr description overflowText">{{event.text}}</span>
-                                </div>
-                                <div class="clubEventTimeDate description">{{event.start_time}}
-                                    {{event.date}}</div>
-                                <div class="clubEventPlace description">{{event.place}}</div>
-                                <div class="clubEventParticipants description">{{event.participants.count}}</div>
-                    </a>
-                {% endfor %}
-    </div>
+    {% include "../clubs/clubEventsComponent.html"  with all_events=events one_time_events=ot_events showAttendance=True %}
+    
 {% endblock %}
