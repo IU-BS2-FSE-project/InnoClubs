@@ -94,37 +94,6 @@ def check_attendance(request, club_url, event_id):
         return render(request, "attendance/check_attendance.html", args)
 
 
-def check_attendance(request, club_url, event_id):
-    args = {}
-    club = Club.objects.get(club_url=club_url)
-    user = auth.get_user(request)
-    try:
-        ClubAdmin.objects.get(club=club, student=user.student)
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(reverse('view_code', args=(club_url, event_id)))
-
-    event = Event.objects.get(id=event_id)
-    try:
-        attendance = Attendance.objects.get(event=event_id, date__date=datetime.date.today())
-    except ObjectDoesNotExist:
-        attendance = Attendance.objects.create(event=event, date=datetime.datetime.now())
-        attendance.save()
-
-    args['user'] = user
-    args['club'] = club
-    args['attendance'] = attendance
-    args['time'] = datetime.date.today()
-    try:
-        if request.method == "POST":
-            code = request.POST.get("code")
-            attended_user = codes.get(int(code))
-            attendance.attended.add(attended_user.student)
-            args['check'] = attended_user
-        return render(request, "attendance/check_attendance.html", args)
-    except AttributeError:
-        return render(request, "attendance/check_attendance.html", args)
-
-
 def view_code(request, club_url, event_id):
     args = {}
     club = Club.objects.get(club_url=club_url)
