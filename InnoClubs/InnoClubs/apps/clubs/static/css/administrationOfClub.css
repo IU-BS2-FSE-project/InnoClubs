@@ -34,6 +34,16 @@
   color: #a00;
 }
 
+.blocked {
+  color: #B3B9BE;
+  border-color: #DFE1E3;
+}
+
+.blocked:hover {
+  box-shadow: 0 0 0 0;
+  color: #B3B9BE;
+}
+
 .actionGroup {
   display: flex;
   flex-direction: row;

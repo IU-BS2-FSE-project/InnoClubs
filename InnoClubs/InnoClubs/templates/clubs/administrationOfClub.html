@@ -69,8 +69,12 @@
             <div>{{ admin.student.user.first_name }} {{admin.student.user.last_name}} ({{admin.student.user.email}})
                 {{admin.rights}}
                 {% if admin.rights == "Admin" %}   <!--Вы не поверите сколько времени я думал как бы это правильно вывести-->
-                    <a class="actionSmall blocked" href="#" >Set as administrator</a><!--it should stay without any link-->
-                    <a class="actionSmall" href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
+                    <a class="actionSmall blocked">Set as administrator</a><!--it should stay without any link-->
+                    {% if admin.student.user == user %} 
+                        <a class="actionSmall blocked">Downgrade</a>
+                    {% else %}
+                        <a class="actionSmall" href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
+                    {% endif %}
                 {% elif admin.rights == "Assistant" %}
                     <a class="actionSmall" href="{% url 'set_admin' club.club_url admin.id%}">Set as administrator</a>
                     <a class="actionSmall" href="{% url 'downgrade' club.club_url admin.id%}">Downgrade</a>
